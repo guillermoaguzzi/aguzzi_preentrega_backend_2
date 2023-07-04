@@ -1,0 +1,42 @@
+[
+	{
+		"id": 1,
+		"title": "Fender American Standard Stratocaster Guitar",
+		"description": "The standard and most popular model in the market",
+		"code": "FAS7593",
+		"price": 1000,
+		"status": true,
+		"stock": 23,
+		"category": "Electric Guitar"
+	},
+	{
+		"id": 2,
+		"title": "Fender MIM Standard Stratocaster Guitar",
+		"description": "The best quality model on a budget in the market",
+		"code": "FMIMS3946",
+		"price": 800,
+		"status": true,
+		"stock": 18,
+		"category": "Electric Guitar"
+	},
+	{
+		"id": 3,
+		"title": "Fender Blacktop Telecaster Guitar",
+		"description": "The best model for going down a harder path in guitar playing",
+		"code": "FBT9451",
+		"price": 1450,
+		"status": true,
+		"stock": 12,
+		"category": "Electric Guitar"
+	},
+	{
+		"id": 4,
+		"title": "Fender Jazzmaster Guitar",
+		"description": "Get a fresh and classy vibe with this model",
+		"code": "FJ8465",
+		"price": 1730,
+		"status": true,
+		"stock": 8,
+		"category": "Electric Guitar"
+	}
+]

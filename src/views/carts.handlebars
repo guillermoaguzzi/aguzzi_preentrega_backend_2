@@ -1,0 +1,15 @@
+<div style="margin-left: 10px;">
+  <h1>This is your Cart!</h1>
+
+  {{#each products}}
+    <div style="display: flex; flex-direction: column; margin-top: 10px;">
+      <p style="font-size: 25px; font-weight: bold; margin-bottom: -15px;">{{this.title}}</p>
+      <p style="font-size: 20px; margin-bottom: -15px;">Price: ${{this.price}}</p>
+      <p style="font-size: 20px; margin-bottom: -15px;">Quantity: {{this.quantity}}</p>
+      <p style="font-size: 20px; margin-bottom: 30px;">TOTAL PRICE: ${{this.totalPrice}}</p>
+    </div>
+  {{/each}}
+</div>
+
+
+
