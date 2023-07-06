@@ -123,25 +123,27 @@ class ProductsViewsRoutes {
           ? lastPage
           : null;
 
-      res.render("products", {
-        products: docs,
-        categories,
-        noCategory,
-        categoryURL,
-        limit,
-        page,
-        hasPrevPage,
-        hasNextPage,
-        prevPage,
-        nextPage,
-        totalPages,
-        previousPagesNumbers,
-        followingPagesNumbers,
-        firstPage,
-        lastPage,
-        firstPageExist,
-        lastPageExist,
-      });
+        res.render("products", {
+          products: docs,
+          categories,
+          noCategory,
+          categoryURL,
+          limit,
+          page,
+          hasPrevPage,
+          hasNextPage,
+          prevPage,
+          nextPage,
+          totalPages,
+          previousPagesNumbers,
+          followingPagesNumbers,
+          firstPage,
+          lastPage,
+          firstPageExist,
+          lastPageExist,
+          stock: req.query.stock,
+          sortOption: req.query.sortOption,
+        });
 
       const result = {
         status: "success",
