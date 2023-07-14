@@ -1,4 +1,6 @@
 const { Router } = require("express");
+const authMdw = require("../middleware/auth.middleware");
+
 const productsModel = require("../dao/models/products.models");
 
 class ProductsViewsRoutes {
@@ -10,7 +12,7 @@ class ProductsViewsRoutes {
   }
 
   initViewsRoutes() {
-    this.router.get(`${this.path}`, async (req, res) => {
+    this.router.get(`${this.path}`, authMdw, async (req, res) => {
       const limit = req.query.limit || 10;
       const category = req.query.category || null;
       const stock = req.query.stock || null;
@@ -20,8 +22,6 @@ class ProductsViewsRoutes {
       const categories = [];
       const noCategory = null;
       const sortByPrice = parseInt(sortOption);
-
-      console.log(sortByPrice);
 
       const pipeline = [
         {
@@ -38,6 +38,7 @@ class ProductsViewsRoutes {
         stockFilter = { stock: { $lt: 1 } };
       }
 
+      // Nuevo stage "sort" si se proporciona el parámetro "price"
       let sort = {};
 
       if (sortByPrice === -1) {
@@ -45,19 +46,6 @@ class ProductsViewsRoutes {
       } else if (sortByPrice === 1) {
         sort = { price: 1 };
       }
-
-
-/* 
-      // Nuevo stage "match" si se proporciona el parámetro "stock"
-      let priceFilter = null;
-
-      if (sortByPrice === -1) {
-        priceFilter = { $sort: { price: -1 } };
-      } else if (stock === "false") {
-        priceFilter = { $sort: { price: 1 } };
-      } */
-
-
 
 /*       if (stockFilter) {
         pipeline.push({ $match: stockFilter });
@@ -123,6 +111,13 @@ class ProductsViewsRoutes {
           ? lastPage
           : null;
 
+
+          //variable para nombre en saludo "Welcome!"
+          const userName = req.session.userName ? req.session.userName.charAt(0).toUpperCase() + req.session.userName.slice(1) : "";
+
+          const userRol = req.session.userRol;
+
+
         res.render("products", {
           products: docs,
           categories,
@@ -143,6 +138,8 @@ class ProductsViewsRoutes {
           lastPageExist,
           stock: req.query.stock,
           sortOption: req.query.sortOption,
+          userName,
+          userRol,
         });
 
       const result = {
@@ -162,8 +159,6 @@ class ProductsViewsRoutes {
           : null,
       };
 
-      /* console.log(result); */
-      console.log(stockFilter);
     });
   }
 }

@@ -2,7 +2,7 @@ const { Router } = require("express");
 const cartModel = require("../dao/models/carts.models")
 
 class CartsViewsRoutes{
-    path = '/views/cart'
+    path = '/view/cart'
     router = Router();
 
     constructor() {

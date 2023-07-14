@@ -1,5 +1,25 @@
 <div style="margin-left: 10px;">
-  <h1>Product List</h1>
+  <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+
+
+    <div style="display: flex; flex-direction: column;">
+      <h1 style="font-size: 50px;">Product List</h1>
+      <p style="font-size: 20px; margin-top: -30px; margin-bottom: 50px;">Welcome, {{userName}}!</p>
+      <p style="font-size: 20px; margin-top: -50px; margin-bottom: 50px; color: gray;">Rol: {{userRol}}</p>
+    </div>
+
+
+    <div style="display: flex; flex-direction: column; ">
+      <form action="/api/v1/session/logout" method="GET">
+      <a href="/api/v1/session/login">
+        <button style="margin: 0 10px;">LOGOUT</button>
+      </a>
+      </form>
+    </div>
+
+  </div>
+  
+
 
   <form style="display: flex; flex-direction: row; align-items: center; margin: 20px 0;" action="/api/v1/view/products" method="GET">
 

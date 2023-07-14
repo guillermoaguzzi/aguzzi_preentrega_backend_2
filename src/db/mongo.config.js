@@ -2,8 +2,10 @@ const { connect } = require("mongoose");
 
 const { DB_PORT, DB_NAME, DB_CNN, DB_HOST } = require("../config/config");
 
+const MONGO_URL = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+
 const configConnection = {
-  url: DB_CNN ?? `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+  url: /* DB_CNN ?? */ MONGO_URL,
   options: {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -25,4 +27,6 @@ const mongoDBConnection = async () => {
 
 module.exports = {
   mongoDBConnection,
+  MONGO_URL,
 };
+

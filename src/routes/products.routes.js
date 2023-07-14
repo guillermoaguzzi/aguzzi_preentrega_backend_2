@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const productsModel = require("../dao/models/products.models");
 
-const productsData = require("../db/products");
+const productsData = require("../db/products.json");
 const ProductManager = require("../dao/managers/products.manager");
 
 class ProductsRoutes {

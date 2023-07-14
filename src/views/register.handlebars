@@ -1,0 +1,75 @@
+<div>
+  <h1>REGISTER</h1>
+
+  <div>
+    <form style="display: flex; flex-direction: column;" action="/api/v1/session/register" method="POST">
+
+
+      <label for="firstName">First Name</label style="margin-top: 15px;">
+      <input style="width: 200px;"
+        type="text"
+        name="firstName"
+        id="firstName"
+        placeholder="Enter your first name"
+        required
+      />
+
+
+      <label style="margin-top: 15px;" for="lastName">Last Name</label style="margin-top: 15px;">
+      <input style="width: 200px;"
+        type="text"
+        name="lastName"
+        id="lastName"
+        placeholder="Enter your last name"
+        required
+      />
+      
+
+      <label style="margin-top: 15px;" for="age">Age</label style="margin-top: 15px;">
+      <input style="width: 200px;"
+        type="number"
+        name="age"
+        id="age"
+        placeholder="Enter your age"
+        min="1"
+        required
+      />
+
+
+      <label style="margin-top: 15px;" for="username">Username</label style="margin-top: 15px;">
+      <input style="width: 200px;"
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Enter your username"
+        required
+      />
+
+
+      <label style="margin-top: 15px;" for="email">Email</label style="margin-top: 15px;">
+      <input style="width: 200px;"
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Enter your email"
+        required
+      />
+      
+
+      <label style="margin-top: 15px;" for="password">Password</label style="margin-top: 15px;">
+      <input style="width: 200px;"
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Enter your password"
+        required
+      />
+
+      
+      <button style="width: 206px; margin-top: 30px;" type="submit" action="/api/v1/session/register" method="POST">SUBMIT</button>
+
+
+    </form>
+  </div>
+
+</div>
