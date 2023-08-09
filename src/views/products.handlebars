@@ -10,8 +10,8 @@
 
 
     <div style="display: flex; flex-direction: column; ">
-      <form action="/api/v1/session/logout" method="GET">
-      <a href="/api/v1/session/login">
+      <form action="/api/{{API_VERSION}}/session/logout" method="GET">
+      <a href="/api/{{API_VERSION}}/session/login">
         <button style="margin: 0 10px;">LOGOUT</button>
       </a>
       </form>
@@ -21,7 +21,7 @@
   
 
 
-  <form style="display: flex; flex-direction: row; align-items: center; margin: 20px 0;" action="/api/v1/view/products" method="GET">
+  <form style="display: flex; flex-direction: row; align-items: center; margin: 20px 0;" action="/api/{{API_VERSION}}/view/products" method="GET">
 
     <label for="limit">Products per page:</label>
     <input style="margin-left: 5px;" type="number" id="limit" name="limit" min="1" value={{limit}}>
@@ -73,19 +73,19 @@
 
   <div style="display: flex; flex-direction: row; align-items: center">
     {{#if firstPageExist}}
-      <a href="/api/v1/view/products?limit={{limit}}&page={{firstPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
+      <a href="/api/{{API_VERSION}}/view/products?limit={{limit}}&page={{firstPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
         <button style="margin: 0 10px;">first page</button>
       </a>
     {{/if}}
 
     {{#if hasPrevPage}}
-      <a href="/api/v1/view/products?limit={{limit}}&page={{prevPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
+      <a href="/api/{{API_VERSION}}/view/products?limit={{limit}}&page={{prevPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
         <button style="margin: 0 10px;">previous page</button>
       </a>
     {{/if}}
 
     {{#each previousPagesNumbers}}
-      <a href="/api/v1/view/products?limit={{@root.limit}}&page={{this}}&category={{@root.categoryURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
+      <a href="/api/{{API_VERSION}}/view/products?limit={{@root.limit}}&page={{this}}&category={{@root.categoryURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
         <button style="margin: 0 10px;">{{this}}</button>
       </a>
     {{/each}}
@@ -95,19 +95,19 @@
     </div>
 
     {{#each followingPagesNumbers}}
-      <a href="/api/v1/view/products?limit={{@root.limit}}&page={{this}}&category={{@root.categoryURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
+      <a href="/api/{{API_VERSION}}/view/products?limit={{@root.limit}}&page={{this}}&category={{@root.categoryURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
         <button style="margin: 0 10px;">{{this}}</button>
       </a>
     {{/each}}
 
     {{#if hasNextPage}}
-      <a href="/api/v1/view/products?limit={{limit}}&page={{nextPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
+      <a href="/api/{{API_VERSION}}/view/products?limit={{limit}}&page={{nextPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
         <button style="margin: 0 10px;">next page</button>
       </a>
     {{/if}}
 
     {{#if lastPageExist}}
-      <a href="/api/v1/view/products?limit={{limit}}&page={{lastPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
+      <a href="/api/{{API_VERSION}}/view/products?limit={{limit}}&page={{lastPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
         <button style="margin: 0 10px;">last page</button>
       </a>
     {{/if}}

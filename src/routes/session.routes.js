@@ -1,5 +1,8 @@
 const { Router } = require("express");
 const userModel = require("../dao/models/users.model.js");
+const { createHashValue, isValidPasswd } = require("../utils/bcrypt.js");
+const passport = require("passport");
+const { API_VERSION } = require("../config/config");
 
 const router = Router();
 
@@ -48,13 +51,19 @@ class SessionRoutes {
         const email = req.params.email ?? req.body.email;
         const password = req.params.password ?? req.body.password;
 
+        const pswHashed = await createHashValue(password);
+    console.log(
+      "🚀 ~ file: session.routes.js:51 ~ router.post ~ pswHashed:",
+      pswHashed
+    );
+
         const newUserData = {
           firstName,
           lastName,
           age,
           username,
           email,
-          password,
+          password: pswHashed
         };
 
         console.log(
@@ -73,7 +82,7 @@ class SessionRoutes {
 
           const newUser = await userModel.create(newUserData);
           console.log(
-            "🚀 ~ file: session.routes.js:50 ~ router.post ~ newUser:",
+            "🚀 ~ file: session.routes.js:84 ~ router.post ~ newUser:",
             newUser
           );
 
@@ -83,7 +92,7 @@ class SessionRoutes {
         
       } catch (error) {
         console.log(
-          "🚀 ~ file: session.routes.js:59 ~ router.post ~ error:",
+          "🚀 ~ file: session.routes.js:94 ~ router.post ~ error:",
           error
         );
       }
@@ -93,9 +102,13 @@ class SessionRoutes {
 
 
       //LOG IN USUARIO
-    this.router.get(`${this.path}/login`, (req, res) => {
-      res.render("login");
+      this.router.get(`${this.path}/login`, (req, res) => {
+        const context = {
+            API_VERSION: API_VERSION // Pasa la variable API_VERSION al contexto
+        };
+        res.render("login", context);
     });
+    
 
     this.router.post(`${this.path}/login`, async (req, res) => {
       try {
@@ -104,16 +117,15 @@ class SessionRoutes {
         const session = req.session;
 
         console.log(
-          "🚀 ~ file: session.routes.js:107 ~ router.post ~ session:",
+          "🚀 ~ file: session.routes.js:115 ~ router.post ~ session:",
           session
         );
 
         //verificacion si existe el usuario
         const findUserUsernameEmail = await userModel.findOne({ $or: [{ username: usernameEmail }, { email: usernameEmail }] });
 
-
         console.log(
-          "🚀 ~ file: session.routes.js:24 ~ router.post ~ findUserUsernameEmail:",
+          "🚀 ~ file: session.routes.js:123 ~ router.post ~ findUserUsernameEmail:",
           findUserUsernameEmail
         );
 
@@ -134,8 +146,16 @@ class SessionRoutes {
             .json({ message: "username or email not found" });}
         }
 
-        if (findUserUsernameEmail.password !== password) {
-          return res.render("login", { wrongCredentials: "Wrong Credentials, please try again" });
+        const isValidComparePsw = await isValidPasswd(password, findUserUsernameEmail.password);
+        console.log(
+          "🚀 ~ file: session.routes.js:146 ~ router.post ~ isValidComparePsw:",
+          isValidComparePsw
+        );
+
+        if (!isValidComparePsw) {
+          return res.status(401).json({
+            message: `Wrong credentials`,
+          });
         }
 
         req.session.user = {
@@ -169,6 +189,30 @@ class SessionRoutes {
       });
     });
 
+    /* GITHUB */
+    this.router.get(
+      `${this.path}/github`,
+      passport.authenticate("github", { scope: ["user:email"] }),
+      async (req, res) => {
+        console.log(`****** GITHUB Login Strategy *****`);
+      }
+    );
+    
+    this.router.get(
+      `${this.path}/github/callback`,
+      passport.authenticate("github", { failureRedirect: "/login" }),
+      async (req, res) => {
+        try {
+          console.log(
+            `****** Using ENDPOINT of github/callback to comunicate *****`
+          );
+          req.session.user = req.user;
+          res.redirect("/profile");
+        } catch (error) {
+          console.log("🚀 ~ file: session.routes.js:115 ~ error:", error);
+        }
+      }
+    );
 
   }
 }

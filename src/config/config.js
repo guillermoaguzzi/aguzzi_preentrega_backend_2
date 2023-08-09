@@ -12,6 +12,8 @@ const {
     DB_NAME,
     DB_USER,
     DB_PASSWORD,
+    GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET,
 } = process.env;
 
 module.exports = {
@@ -24,4 +26,6 @@ module.exports = {
     DB_NAME,
     DB_USER,
     DB_PASSWORD,
+    GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET,
 };

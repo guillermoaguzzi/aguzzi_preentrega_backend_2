@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const authMdw = require("../middleware/auth.middleware");
+const { API_VERSION } = require("../config/config");
+
 
 const productsModel = require("../dao/models/products.models");
 
@@ -140,6 +142,7 @@ class ProductsViewsRoutes {
           sortOption: req.query.sortOption,
           userName,
           userRol,
+          API_VERSION,
         });
 
       const result = {

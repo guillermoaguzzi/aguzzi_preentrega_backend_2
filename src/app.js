@@ -9,14 +9,11 @@ const cookieParser = require("cookie-parser");
 const mongoStore = require("connect-mongo");
 const session = require("express-session");
 const { exec } = require('child_process');
-
-
+const passport = require("passport");
+const initializePassport = require("./config/passport.config");
 
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
-
-
-
 
 
 class App {
@@ -75,6 +72,8 @@ class App {
             saveUninitialized: false,
             })
         );
+        initializePassport();
+        this.app.use(passport.initialize());
     }
 
     initializeRoutes(routes) {
