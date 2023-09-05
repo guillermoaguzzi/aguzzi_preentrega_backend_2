@@ -1,12 +1,12 @@
 const passport = require("passport");
 const GithubStrategy = require("passport-github2");
-const userModel = require("../dao/models/users.model");
+const userModel = require("../models/users.model");
 const {  GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, API_VERSION } = require("./config");
 
 
 
 
-const initializePassport = () => {
+const initializePassportGithub = () => {
     passport.use(
     "github",
     new GithubStrategy(
@@ -51,4 +51,4 @@ const initializePassport = () => {
     });
 };
 
-module.exports = initializePassport;
+module.exports = initializePassportGithub;

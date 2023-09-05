@@ -2,15 +2,14 @@ const express  = require("express");
 const cors = require("cors");
 const displayRoutes = require("express-routemap");
 const handlebars = require("express-handlebars");
-const { NODE_ENV, PORT, API_VERSION } = require("./config/config");
-const { mongoDBConnection } = require("./db/mongo.config.js");
-const { MONGO_URL } = require("./db/mongo.config.js");
+const { DB_HOST, DB_PORT, DB_NAME, NODE_ENV, PORT, API_VERSION } = require("./config/config");
 const cookieParser = require("cookie-parser");
 const mongoStore = require("connect-mongo");
 const session = require("express-session");
-const { exec } = require('child_process');
+/* const { exec } = require('child_process'); */
 const passport = require("passport");
-const initializePassport = require("./config/passport.config");
+const initializePassportJWT = require("./config/passport.strategy.jwt.config");
+const initializePassportGithub = require("./config/passport.strategy.github.config");
 
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
@@ -35,7 +34,6 @@ class App {
 
         this.initializeMiddlewares();
         this.initializeRoutes(routes);
-        this.connectDB();
         this.initHandlebars();
     }
 
@@ -49,10 +47,6 @@ class App {
         });
     }
 
-    async connectDB() {
-        await mongoDBConnection();
-    }
-
     initializeMiddlewares() {
         this.app.use(cors());
         this.app.use(express.json());
@@ -60,19 +54,25 @@ class App {
         this.app.use('/static', express.static(`${__dirname}/public`));
         this.app.use(cookieParser());
         this.app.use(
+            cors({
+                origin: "*",
+                methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+                })
+            );
+        this.app.use(
             session({
             store: mongoStore.create({
-                mongoUrl: MONGO_URL,
+                mongoUrl: `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
                 mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
                 ttl: 60,
-                // ttl: 60 * 3600
             }),
             secret: "secretS3ss10n",
             resave: false,
             saveUninitialized: false,
             })
         );
-        initializePassport();
+        initializePassportGithub();
+        initializePassportJWT()
         this.app.use(passport.initialize());
     }
 

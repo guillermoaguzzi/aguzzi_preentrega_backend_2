@@ -1,20 +1,20 @@
 const { Router } = require("express");
-const authMdw = require("../middleware/auth.middleware");
+const { authMdw } = require("../middleware/auth.middleware");
 const { API_VERSION } = require("../config/config");
 
 
-const productsModel = require("../dao/models/products.models");
+const productsModel = require("../models/products.models");
 
 class ProductsViewsRoutes {
   path = "/view/products";
   router = Router();
 
   constructor() {
-    this.initViewsRoutes();
+  this.initViewsRoutes();
   }
 
   initViewsRoutes() {
-    this.router.get(`${this.path}`, authMdw, async (req, res) => {
+    this.router.get(`${this.path}`, /* authMdw, */ async (req, res) => {
       const limit = req.query.limit || 10;
       const category = req.query.category || null;
       const stock = req.query.stock || null;

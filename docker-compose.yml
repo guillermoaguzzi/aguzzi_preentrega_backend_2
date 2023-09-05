@@ -3,12 +3,12 @@ version: '3.0'
 services:
   mongo:
     image: mongo
-    container_name: SegundaPreEntrega
+    container_name: TerceraPreEntrega
     ports:
       - 27017:27017
     volumes:
-      - SegundaPreEntrega:/data/configdb
-      - SegundaPreEntrega:/data/db
+      - TerceraPreEntrega:/data/configdb
+      - TerceraPreEntrega:/data/db
 
 volumes:
-  SegundaPreEntrega: {}
+  TerceraPreEntrega: {}

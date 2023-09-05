@@ -1,12 +1,14 @@
 const { Router } = require("express");
 const fs = require('fs');
 const path = require('path');
-const { postSchema, putSchema } = require("../utils/fs.validator");
+const { postSchema, putSchema } = require("../../utils/fs.validator");
+const pathProducts = require("../../db/fs/products.json");
+
 
 class FsProductsRoutes{
 path = "/fs/products";
 router = Router();
-pathProducts = path.join(__dirname, '../db/fs/products.json');
+pathProducts = pathProducts
 
 constructor() {
 	this.initFsProductsRoutes();

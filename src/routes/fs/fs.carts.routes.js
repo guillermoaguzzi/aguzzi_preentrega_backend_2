@@ -1,13 +1,15 @@
 const { Router } = require("express");
 const fs = require('fs');
 const path = require('path');
+const pathProducts = require("../../db/fs/products.json");
+const pathCarts = require("../../db/fs/carts.json");
 
 
 class FsCartsRoutes{
 path = "/fs/carts";
 router = Router();
-pathProducts = path.join(__dirname, '../db/fs/products.json');
-pathCarts = path.join(__dirname, '../db/fs/carts.json');
+pathProducts = pathProducts
+pathCarts = pathCarts
 
 constructor() {
   this.initFsCartsRoutes();

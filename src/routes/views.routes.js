@@ -3,13 +3,13 @@ const authMdw = require("../middleware/auth.middleware");
 
 const router = Router();
 
-router.get("/login", async (req, res) => {
+/* router.get("/login", async (req, res) => {
   res.render("login");
 });
 
 router.get("/register", async (req, res) => {
   res.render("register");
-});
+}); */
 
 // TODO: Agregar middleware AUTH
 router.get("/profile", authMdw, async (req, res) => {
