@@ -10,7 +10,7 @@ const authMdw = (req, res, next) => {
 const authorization = (roles) => {
   return async (req, res, next) => {
     console.log(
-      "🚀 ~ file: authorization.middleware.js:9 ~ return ~ req.user.role:",
+      "🚀 ~ file: auth.middleware.js:9 ~ return ~ req.user.role:",
       req.user.user
     );
 

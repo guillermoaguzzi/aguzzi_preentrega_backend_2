@@ -6,7 +6,7 @@ const FsProductsRoutes = require("./routes/fs/fs.products.routes");
 const ProductsViewsRoutes = require("./routes/views.products.routes");
 const CartsViewsRoutes = require("./routes/views.carts.routes");
 const SessionRoutes = require("./routes/sessions.routes");
-const UsersRoutes = require("./routes/user.routes");
+const UsersRoutes = require("./routes/users.routes");
 
 const app = new App([
   new CartsRoutes(),

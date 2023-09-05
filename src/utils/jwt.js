@@ -14,7 +14,7 @@ const generateJWT = (user) => {
   });
 };
 
-passportCall = (strategy) => {
+const passportCall = (strategy) => {
   return async (req, res, next) => {
     passport.authenticate(strategy, function (err, user, info) {
       if (err) return next(err);

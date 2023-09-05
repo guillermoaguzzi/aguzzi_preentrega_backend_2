@@ -1,11 +1,11 @@
 
-const {UserService} = require("../repository/repository.index")
+const {SessionService} = require("../repository/repository.index")
 const { API_VERSION } = require("../config/config");
 
 
 class SessionController {
     constructor() {
-        this.userService = UserService;
+        this.sessionService = SessionService;
     }
 
     getRegisterPage = async (req, res) => {
@@ -18,7 +18,7 @@ class SessionController {
         console.log("registerUser from CONTROLLER executed");
 
         try {
-            const userRegistered = await this.userService.registerUser(req, res);
+            const userRegistered = await this.sessionService.registerUser(req, res);
             console.log(`User successfully registered: `, userRegistered);
             return res.render("login");
         } catch (error) {
@@ -39,7 +39,7 @@ class SessionController {
         console.log("loginUser from CONTROLLER executed");
 
         try {
-        const userLogged = await this.userService.loginUser(req, res);
+        const userLogged = await this.sessionService.loginUser(req, res);
         console.log(`User successfully logged: `, userLogged);
         return res.redirect("/api/v1/view/products");
         } catch (error) {
@@ -51,7 +51,7 @@ class SessionController {
         console.log("githubLogin from CONTROLLER executed");
 
         try {
-        const githubLogin = await this.userService.githubLogin();
+        const githubLogin = await this.sessionService.githubLogin();
         return res.json({ message: `User successfully logged through Github`, githubLogin});
         } catch (error) {
         res.status(500).json({ message: error.message });
@@ -62,7 +62,7 @@ class SessionController {
         console.log("githubCallback from CONTROLLER executed");
 
         try {
-        const githubCallback = await this.userService.githubCallback(req, res);
+        const githubCallback = await this.sessionService.githubCallback(req, res);
         return res.json({ message: `User successfully logged through Github`, githubCallback});
         } catch (error) {
         res.status(500).json({ message: error.message });
@@ -73,7 +73,7 @@ class SessionController {
         console.log("logoutUser from CONTROLLER executed");
 
         try {
-            const userLoggedOut = await this.userService.logoutUser(req, res);
+            const userLoggedOut = await this.sessionService.logoutUser(req, res);
             return res.render("login");
         } catch (error) {
             res.status(500).json({ message: error.message });

@@ -2,7 +2,8 @@ const { mongoose } = require("mongoose");
 const { DB_HOST, DB_PORT, DB_NAME, PERSISTENCE } = require("../config/config");
 const ProductsServiceDao = require("../repository/products.repository");
 const CartsServiceDao = require("../repository/carts.repository");
-const UsersServiceDao = require("../repository/sessions.repository");
+const UsersServiceDao = require("../repository/users.repository");
+const SessionServiceDao = require("../repository/sessions.repository");
 
 const MONGO_URL = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 
@@ -24,6 +25,12 @@ class Users {
   }
 }
 
+class Sessions {
+  constructor(){
+    let sessions;
+  }
+}
+
 (async () => {
   switch (PERSISTENCE) {
     case "MONGO":
@@ -34,6 +41,7 @@ class Users {
         Products = ProductsServiceDao;
         Carts = CartsServiceDao;
         Users = UsersServiceDao;
+        Sessions = SessionServiceDao;
       } catch (err) {
         console.error("Error connecting to MongoDB:", err);
       }
@@ -46,6 +54,7 @@ class Users {
         Products = ProductsServiceDaoMemory;
         Carts = CartsServiceDaoMemory;
         Users = UsersServiceDaoMemory;
+        Sessions = SessionServiceDaoMemory;
       } catch (err) {
         console.error("Error importing ProductServiceDaoMemory:", err);
       }
@@ -57,4 +66,5 @@ module.exports = {
   Products, 
   Carts,
   Users,
+  Sessions,
 }

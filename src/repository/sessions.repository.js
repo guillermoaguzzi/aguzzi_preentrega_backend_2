@@ -3,7 +3,7 @@ const { createHashValue, isValidPasswd } = require("../utils/bcrypt");
 const passport = require("passport");
 const { generateJWT } = require("../utils/jwt");
 
-class UserServiceDao {
+class SessionServiceDao {
     constructor(dao) {
         this.dao = dao;
     }
@@ -41,7 +41,7 @@ class UserServiceDao {
             req.session.user = { ...newUserData };
             return newUserData.email
         } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:42 ~ UserServiceDao ~ registerUser= ~ error:", error)
+        console.log("🚀 ~ file: users.repository.js:42 ~ sessionServiceDao ~ registerUser= ~ error:", error)
         }
     }
 
@@ -49,7 +49,7 @@ class UserServiceDao {
         console.log("loginUser from REPOSITORY executed");
     
         try {
-            const usernameEmail = req.params.usernameEmail ?? req.body.usernameEmail;
+            const usernameEmail = req.params.usernameEmail ?? req.body.username ?? req.body.email;
             const password = req.params.password ?? req.body.password;
     
             const findUserUsernameEmail = await userModel.findOne({ $or: [{ username: usernameEmail }, { email: usernameEmail }] });
@@ -76,9 +76,15 @@ class UserServiceDao {
     
             const token = await generateJWT({ ...signUser });
 
-            return signUser.email
+            const user = {
+                email: findUserUsernameEmail.email,
+                role: findUserUsernameEmail.role,
+                token: token,
+            };
+
+            return user
         } catch (error) {
-            console.log("🚀 ~ file: users.repository.js:80 ~ UserServiceDao ~ loginUser= ~ error:", error);
+            console.log("🚀 ~ file: users.repository.js:80 ~ sessionServiceDao ~ loginUser= ~ error:", error);
             res.status(500).json({ message: error.message });
         }
     }
@@ -90,7 +96,7 @@ class UserServiceDao {
         try {
             passport.authenticate("github", { scope: ["user:email"] })(req, res);
         } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:90 ~ UserServiceDao ~ githubLogin= ~ error:", error)
+        console.log("🚀 ~ file: users.repository.js:90 ~ sessionServiceDao ~ githubLogin= ~ error:", error)
         }
     }
 
@@ -110,7 +116,7 @@ class UserServiceDao {
                 }
             );
         } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:110 ~ UserServiceDao ~ githubCallback= ~ error:", error)
+        console.log("🚀 ~ file: users.repository.js:110 ~ sessionServiceDao ~ githubCallback= ~ error:", error)
         }
     }
 
@@ -131,4 +137,4 @@ class UserServiceDao {
     }
 }
 
-module.exports = UserServiceDao;
+module.exports = SessionServiceDao;

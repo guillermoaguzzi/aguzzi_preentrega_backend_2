@@ -1,6 +1,6 @@
 const passport = require("passport");
 const jwt = require("passport-jwt");
-const ROLES = require("./config");
+const {ROLES} = require("./config");
 const userModel = require("../models/users.model");
 const { SECRET_JWT } = require("../utils/jwt");
 
