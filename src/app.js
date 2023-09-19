@@ -6,6 +6,7 @@ const { DB_HOST, DB_PORT, DB_NAME, NODE_ENV, PORT, API_VERSION } = require("./co
 const cookieParser = require("cookie-parser");
 const mongoStore = require("connect-mongo");
 const session = require("express-session");
+const compression = require ("express-compression");
 /* const { exec } = require('child_process'); */
 const passport = require("passport");
 const initializePassportJWT = require("./config/passport.strategy.jwt.config");
@@ -53,6 +54,11 @@ class App {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use('/static', express.static(`${__dirname}/public`));
         this.app.use(cookieParser());
+        this.app.use(
+            compression({
+                brotli: { enable: true, zlib: {} },
+            })
+        );
         this.app.use(
             cors({
                 origin: "*",

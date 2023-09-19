@@ -2,14 +2,17 @@ const userModel = require("../models/users.model")
 const { createHashValue, isValidPasswd } = require("../utils/bcrypt");
 const passport = require("passport");
 const { generateJWT } = require("../utils/jwt");
+const CartService = require ("../repository/carts.service.js");
+//const {CartService} = require ("../repository/repository.index");
+
 
 class SessionServiceDao {
     constructor(dao) {
         this.dao = dao;
+        this.cartService = CartService;
     }
 
     registerUser = async (req, res) => {
-        console.log("registerUser from REPOSITORY executed");
 
         try {
             const firstName = req.body.firstName ?? req.params.firstName;
@@ -25,7 +28,11 @@ class SessionServiceDao {
             if (findUser) {
                 return res.status(409).json({ message: "username and/or email already exist" });
             }
-    
+
+            let cartData = {};
+            const newCart = await this.cartService.createCart(cartData);
+            console.log(newCart);
+
             const newUserData = {
                 firstName,
                 lastName,
@@ -33,6 +40,7 @@ class SessionServiceDao {
                 username,
                 email,
                 password: pswHashed,
+                cart: newCart._id,
                 role
             };
 

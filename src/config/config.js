@@ -17,6 +17,11 @@ const {
     GITHUB_CLIENT_SECRET,
     ROLES,
     SECRET_JWT,
+    EMAIL,
+    EMAIL_PSW,
+    SMS_ACC_SID,
+    SMS_AUTH_TOKEN,
+    SMS_PHONE,
 } = process.env;
 
 module.exports = {
@@ -34,4 +39,9 @@ module.exports = {
     GITHUB_CLIENT_SECRET,
     ROLES,
     SECRET_JWT,
+    EMAIL,
+    EMAIL_PSW,
+    SMS_ACC_SID,
+    SMS_AUTH_TOKEN,
+    SMS_PHONE,
 };

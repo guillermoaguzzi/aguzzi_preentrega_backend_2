@@ -13,6 +13,7 @@ class ProductsRoutes {
 
     initRoutes() {
         this.router.get(`${this.path}/insertion`, this.productCtrl.insertProducts);
+        this.router.get(`${this.path}/mockingproducts`, this.productCtrl.generateMockingProducts);
         this.router.get(`${this.path}`, this.productCtrl.getAllProducts);
         this.router.get(`${this.path}/:pid`, this.productCtrl.getProductById);
         this.router.post(`${this.path}`, this.productCtrl.createProduct);

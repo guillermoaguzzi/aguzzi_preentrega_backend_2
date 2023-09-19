@@ -43,6 +43,7 @@ class CartServiceDao {
 
         try {
             const cart = await cartModel.create(cartData);
+            console.log(cart);
             return cart;
         } catch (error) {
             console.log("🚀 ~ file: carts.repository.js:48 ~ CartServiceDao ~ CreateCart= ~ error:", error)

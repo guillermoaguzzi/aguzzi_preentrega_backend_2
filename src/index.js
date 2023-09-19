@@ -7,6 +7,7 @@ const ProductsViewsRoutes = require("./routes/views.products.routes");
 const CartsViewsRoutes = require("./routes/views.carts.routes");
 const SessionRoutes = require("./routes/sessions.routes");
 const UsersRoutes = require("./routes/users.routes");
+const MailingRoutes = require("./routes/mailing.routes");
 
 const app = new App([
   new CartsRoutes(),
@@ -17,6 +18,7 @@ const app = new App([
   new CartsViewsRoutes(),
   new SessionRoutes(),
   new UsersRoutes(),
+  new MailingRoutes(),
 ]);
 
 app.listen();

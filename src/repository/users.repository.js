@@ -3,7 +3,6 @@ const { authorization } = require("../middleware/auth.middleware");
 const passport = require("passport");
 const { passportCall } = require("../utils/jwt");
 const { roleType } = require("../models/users.model");
-const handlePolicies = require("../middleware/handle-policies.middleware");
 
 class userServiceDao {
     constructor(dao) {
@@ -20,7 +19,7 @@ class userServiceDao {
                 });
             });
         } catch (error) {
-            console.log("🚀 ~ file: users.repository.js:23 ~ userServiceDao ~ currentUser= ~ error:", error)
+            console.log("🚀 ~ file: users.repository.js:22 ~ userServiceDao ~ currentUser= ~ error:", error)
         }
     }    
 
@@ -32,7 +31,7 @@ class userServiceDao {
                 
                 return users
         } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:36 ~ userServiceDao ~ getAllUsers= ~ error:", error)
+        console.log("🚀 ~ file: users.repository.js:34 ~ userServiceDao ~ getAllUsers= ~ error:", error)
         }
     };
 
@@ -44,7 +43,7 @@ class userServiceDao {
 
             return user;
         } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:58 ~ userServiceDao ~ getUserById= ~ error:", error)
+        console.log("🚀 ~ file: users.repository.js:46 ~ userServiceDao ~ getUserById= ~ error:", error)
         }
     };
 
@@ -55,6 +54,7 @@ class userServiceDao {
             const user = await userModel.create(userData);
             return user;
         } catch (error) {
+        console.log("🚀 ~ file: users.repository.js:57 ~ userServiceDao ~ createUser= ~ error:", error)
         }
     };
 
@@ -65,6 +65,7 @@ class userServiceDao {
         const data = await userModel.updateOne({ _id: uid }, { $set: userData });
         return data;
         } catch (error) {
+        console.log("🚀 ~ file: users.repository.js:68 ~ userServiceDao ~ updateUserById= ~ error:", error)
         }
     };
 
@@ -75,6 +76,7 @@ class userServiceDao {
             const delUser = await userModel.deleteOne({ _id: uid });
             return delUser;
         } catch (error) {
+        console.log("🚀 ~ file: users.repository.js:79 ~ userServiceDao ~ deleteUserById ~ error:", error)
         }
     };
 

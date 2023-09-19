@@ -12,10 +12,10 @@ const CartService = new CartRepository(new Carts());
 const UserService = new UserRepository(new Users());
 const SessionService = new SessionRepository(new Sessions());
 
-
 module.exports = {
     ProductService,
     CartService,
     UserService,
     SessionService,
 };
+

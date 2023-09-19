@@ -1,4 +1,5 @@
 const productModel = require("../models/products.models");
+const { generateProducts } = require("../utils/mocks/generate.products");
 
   class ProductServiceDao {
   constructor(dao) {
@@ -12,7 +13,22 @@ const productModel = require("../models/products.models");
       const products = await productModel.insertMany(productsData);
       return products;
     } catch (error) {
-      console.log("🚀 ~ file: products.repository.js:15 ~ ProductServiceDao ~ insertProducts= ~ error:", error)
+      console.log("🚀 ~ file: products.repository.js:16 ~ ProductServiceDao ~ insertProducts= ~ error:", error)
+    }
+  }
+
+  generateMockingProducts = async (productsData) => {
+    console.log("generateMockingProducts from REPOSITORY executed");
+    
+    try {
+      let products = [];
+      for (let index = 0; index < 100; index++) {
+        products.push(generateProducts());
+      }
+    
+      return products
+    } catch (error) {
+      console.log("🚀 ~ file: products.repository.js:31 ~ ProductServiceDao ~ insertProducts= ~ error:", error)
     }
   }
 
@@ -23,7 +39,7 @@ const productModel = require("../models/products.models");
       const products = await productModel.find({});
       return products;
     } catch (error) {
-    console.log("🚀 ~ file: products.repository.js:26 ~ ProductServiceDao ~ getAllProducts= ~ error:", error)
+    console.log("🚀 ~ file: products.repository.js:42 ~ ProductServiceDao ~ getAllProducts= ~ error:", error)
     }
   };
 
@@ -34,7 +50,7 @@ const productModel = require("../models/products.models");
       const product = await productModel.findById({ _id: pid });
       return product;
     } catch (error) {
-    console.log("🚀 ~ file: products.repository.js:37 ~ ProductServiceDao ~ getProductById= ~ error:", error)
+    console.log("🚀 ~ file: products.repository.js:53 ~ ProductServiceDao ~ getProductById= ~ error:", error)
     }
   };
 
@@ -45,7 +61,7 @@ const productModel = require("../models/products.models");
       const product = await productModel.create(productData);
       return product;
     } catch (error) {
-    console.log("🚀 ~ file: products.repository.js:48 ~ ProductServiceDao ~ createProduct= ~ error:", error)
+    console.log("🚀 ~ file: products.repository.js:64 ~ ProductServiceDao ~ createProduct= ~ error:", error)
     }
   };
 
@@ -56,7 +72,7 @@ const productModel = require("../models/products.models");
       const data = await productModel.updateOne({ _id: pid }, { $set: productData });
       return data;
     } catch (error) {
-    console.log("🚀 ~ file: products.repository.js:59 ~ ProductServiceDao ~ updateProductById= ~ error:", error)
+    console.log("🚀 ~ file: products.repository.js:75 ~ ProductServiceDao ~ updateProductById= ~ error:", error)
     }
   };
 
@@ -67,7 +83,7 @@ const productModel = require("../models/products.models");
       const delProd = await productModel.deleteOne({ _id: pid });
       return delProd;
     } catch (error) {
-    console.log("🚀 ~ file: products.repository.js:71 ~ ProductServiceDao ~ deleteProductById ~ error:", error)
+    console.log("🚀 ~ file: products.repository.js:86 ~ ProductServiceDao ~ deleteProductById ~ error:", error)
     }
   };
 }

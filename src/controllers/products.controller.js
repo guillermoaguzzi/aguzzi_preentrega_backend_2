@@ -20,6 +20,17 @@ class ProductCtrl {
     }
   }
 
+  generateMockingProducts = async (req, res ) => {
+    console.log("generateMockingProducts from CONTROLLER executed");
+    
+    try {
+      const products = await this.productService.generateMockingProducts(productsData);
+      return res.json({ message: `All mock products successfully generated`, products});
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
   getAllProducts = async (req, res) => {
     console.log("getAllProducts from CONTROLLER executed");
 

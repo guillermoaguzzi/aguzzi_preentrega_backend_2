@@ -2,12 +2,6 @@ const mongoose = require("mongoose");
 
 const collectionName = "Users";
 
-/* const roleType = {
-  USER: "USER",
-  ADMIN: "ADMIN",
-  PUBLIC: "PUBLIC",
-}; */
-
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -37,6 +31,20 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  cart: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "cart"
+  },
+/*   cart: {
+    type: [
+      {
+        cart: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "cart",
+        },
+      },
+    ], 
+  },*/
   role: {
     type: String,
     required: true,
@@ -44,6 +52,14 @@ const userSchema = new mongoose.Schema({
     default: "USER",
   },
 });
+
+/* userSchema.pre(["find", "findOne"], function () {
+  this.populate({
+    path: "cart.cart",
+    options: { strictPopulate: false }
+  });
+}); */
+
 
 const userModel = mongoose.model(collectionName, userSchema);
 module.exports = userModel;
