@@ -87,7 +87,7 @@ class CartServiceDao {
             await Promise.all(
                 ticketProducts.map(async ({ product, quantity }) => {
                     await productModel.updateOne(
-                        { _id: product._id }, // Usar product._id en lugar de id
+                        { _id: product._id },
                         { $inc: { stock: -quantity } }
                     );
                 })
@@ -98,8 +98,8 @@ class CartServiceDao {
 
             const ticketAmount = ticketProducts.reduce(
                 (total, { product, quantity }) => {
-                    const price = parseFloat(product.price); // Asegúrate de que price sea un número válido
-                    const parsedQuantity = parseFloat(quantity); // Asegúrate de que quantity sea un número válido
+                    const price = parseFloat(product.price);
+                    const parsedQuantity = parseFloat(quantity);
             
                     if (isNaN(price) || isNaN(parsedQuantity)) {
                         throw new Error("Price and quantity must be valid numbers.");
