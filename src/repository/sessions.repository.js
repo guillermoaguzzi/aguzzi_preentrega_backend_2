@@ -2,12 +2,11 @@ const userModel = require("../models/users.model")
 const { createHashValue, isValidPasswd } = require("../utils/bcrypt");
 const passport = require("passport");
 const { generateJWT } = require("../utils/jwt");
-const CartService = require ("../repository/carts.service.js");
-//const {CartService} = require ("../repository/repository.index");
+const {CartService} = require ("../repository/repository.index");
 
 
 class SessionServiceDao {
-    constructor(dao) {
+    constructor(dao, CartService) {
         this.dao = dao;
         this.cartService = CartService;
     }

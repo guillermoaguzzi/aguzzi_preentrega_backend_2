@@ -1,8 +1,13 @@
+const { format } = require('date-fns');
 const cartModel = require("../models/carts.models");
+const productModel = require("../models/products.models");
+const ticketsModel = require("../models/tickets.model");
+const {ProductService} = require ("../repository/repository.index.js");
 
 class CartServiceDao {
-    constructor(dao) {
+    constructor(dao, ProductService) {
         this.dao = dao;
+        this.productService = ProductService;
     }
 
     insertCarts = async (cartsData) => {
@@ -32,6 +37,8 @@ class CartServiceDao {
 
         try {
             const cart = await cartModel.findById({ _id: cid });
+            console.log(cart)
+
             return cart;
         } catch (error) {
             console.log("🚀 ~ file: carts.repository.js:37 ~ CartServiceDao ~ getCartById= ~ error:", error)
@@ -43,10 +50,75 @@ class CartServiceDao {
 
         try {
             const cart = await cartModel.create(cartData);
-            console.log(cart);
             return cart;
         } catch (error) {
             console.log("🚀 ~ file: carts.repository.js:48 ~ CartServiceDao ~ CreateCart= ~ error:", error)
+        }
+    };
+
+    purchaseCart = async (cart, email) => {
+        console.log("purchaseCart from REPOSITORY executed");
+
+        try {
+            const cartToPurchase = await cartModel.findById({ _id: cart });
+            
+            if (!cartToPurchase) {
+                return res.status(404).json({
+                    message: `cart ID ${cart} not found`,
+                });
+                }
+            
+                const ticketProducts = [];
+                const productsWithoutStock = [];
+                
+                for (const { product, quantity } of cartToPurchase.products) {
+                    const productId = await productModel.findById({ _id: product.id });
+                    if (productId.stock >= quantity) {
+                        ticketProducts.push({
+                            product, quantity
+                        });
+                    } else {
+                        productsWithoutStock.push({ product, quantity });
+                    }
+                }
+                
+            await cartModel.updateOne({ _id: cartToPurchase.id }, { products: productsWithoutStock });
+
+            await Promise.all(
+                ticketProducts.map(async ({ product, quantity }) => {
+                    await productModel.updateOne(
+                        { _id: product._id }, // Usar product._id en lugar de id
+                        { $inc: { stock: -quantity } }
+                    );
+                })
+            );
+            
+
+            console.log("ticketProducts", ticketProducts)
+
+            const ticketAmount = ticketProducts.reduce(
+                (total, { product, quantity }) => {
+                    const price = parseFloat(product.price); // Asegúrate de que price sea un número válido
+                    const parsedQuantity = parseFloat(quantity); // Asegúrate de que quantity sea un número válido
+            
+                    if (isNaN(price) || isNaN(parsedQuantity)) {
+                        throw new Error("Price and quantity must be valid numbers.");
+                    }
+            
+                    return total + price * parsedQuantity;
+                },
+                0
+            );            
+
+            const ticket = await ticketsModel.create({
+                code: format(new Date(), 'dd-MM-yyyy HH:mm'),
+                amount: ticketAmount,
+                purchasedBy: email,
+            });
+
+            return ticket;
+        } catch (error) {
+        console.log("🚀 ~ file: carts.repository.js:112 ~ CartServiceDao ~ purchaseCart= ~ error:", error)
         }
     };
 

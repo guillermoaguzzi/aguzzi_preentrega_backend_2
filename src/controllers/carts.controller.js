@@ -54,12 +54,26 @@ class CartCtrl {
 
         try {
             const cartInstDto = /* new cartDto */(req.body);
-            const newCart = await this.cartService.createCart(
-                cartInstDto
-            );
+            const newCart = await this.cartService.createCart(cartInstDto);
             return res.json({
                 message: `Cart created successfully`,
                 cart: newCart,
+            });
+        } catch (error) {
+            return res.status(500).json({ message: error.message });
+        }
+    };
+
+        purchaseCart = async (req, res) => {
+        console.log("purchaseCart from CONTROLLER executed");
+
+        try {
+            const {cart, email} = req.session.user._doc;
+
+            const ticket = await this.cartService.purchaseCart(cart, email);
+            return res.json({
+                message: `Ticket generated successfully`,
+                data: ticket,
             });
         } catch (error) {
             return res.status(500).json({ message: error.message });
