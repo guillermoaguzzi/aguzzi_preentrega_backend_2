@@ -18,7 +18,6 @@ class UsersRoutes {
         this.router.post(`${this.path}`, handlePolicies(["ADMIN"]), this.userCtrl.createUser);
         this.router.put(`${this.path}/:pid`, handlePolicies(["ADMIN"]), this.userCtrl.updateUserById);
         this.router.delete(`${this.path}/:uid`, handlePolicies(["ADMIN"]), this.userCtrl.deleteUserById);
-        
     }
 }
 

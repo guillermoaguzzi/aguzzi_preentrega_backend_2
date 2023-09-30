@@ -124,12 +124,12 @@ class CartServiceDao {
 
     updateCartById = async (cid, cartData) => {
         console.log("updateCartById from REPOSITORY executed");
-
+    
         try {
             const data = await cartModel.updateOne({ _id: cid }, { $set: cartData });
             return data;
         } catch (error) {
-        console.log("🚀 ~ file: carts.repository.js:59 ~ CartServiceDao ~ updateCartById= ~ error:", error)
+            console.log("🚀 ~ file: carts.repository.js:59 ~ CartServiceDao ~ updateCartById= ~ error:", error)
         }
     };
     

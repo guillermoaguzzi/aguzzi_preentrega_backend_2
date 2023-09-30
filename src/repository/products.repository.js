@@ -1,9 +1,11 @@
 const productModel = require("../models/products.models");
 const { generateProducts } = require("../utils/mocks/generate.products");
+const { EnumErrors, HttpResponse } = require("../middleware/errors.middleware");
 
   class ProductServiceDao {
   constructor(dao) {
     this.dao = dao;
+    this.httpResp = new HttpResponse();
   }
 
   insertProducts = async (productsData) => {
@@ -54,15 +56,45 @@ const { generateProducts } = require("../utils/mocks/generate.products");
     }
   };
 
-  createProduct = async (productData) => {
+  createProduct = async (productData, res) => {
     console.log("createProduct from REPOSITORY executed");
 
     try {
+      if (
+        (!productData.title || typeof productData.title !== 'string') ||
+        (!productData.description || typeof productData.description !== 'string') ||
+        (!productData.code || typeof productData.code !== 'string') ||
+        (!productData.category || typeof productData.category !== 'string') ||
+        (!productData.price || typeof productData.price !== 'number') ||
+        (!productData.stock || typeof productData.stock !== 'number') ||
+        (!productData.status || typeof productData.status !== 'boolean')
+      ) {
+        return this.httpResp.BadRequest(
+          res,
+          `${EnumErrors.INVALID_PARAMS} - Invalid Params for Product `,
+          productData
+        );
+      }
+
+      const codeCheck = await productModel.findOne({ code: productData.code });
+      console.log(codeCheck)
+      if (codeCheck) {
+        return this.httpResp.BadRequest(
+          res,
+          `${EnumErrors.DATABASE_ERROR} - Product code already exist`,
+          productData.code
+        );
+      }
+
       const product = await productModel.create(productData);
       return product;
     } catch (error) {
-    console.log("🚀 ~ file: products.repository.js:64 ~ ProductServiceDao ~ createProduct= ~ error:", error)
-    }
+        return this.httpResp.Error(
+          res,
+          `Error creating product`,
+          error?.message
+        );
+      }
   };
 
   updateProductById = async (pid, productData) => {

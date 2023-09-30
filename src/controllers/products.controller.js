@@ -1,8 +1,7 @@
 const  ProductDto = require ("../dto/product.dto");
 const productsData = require("../db/products.json");
 const {ProductService} = require ("../repository/repository.index");
-
-
+const handlePolicies = require("../middleware/handle-policies.middleware");
 
 class ProductCtrl {
   constructor() {
@@ -65,15 +64,14 @@ class ProductCtrl {
 
     try {
       const productInstDto = /* new ProductDto */(req.body);
-      const newProduct = await this.productService.createProduct(
-        productInstDto
-      );
+      const newProduct = await this.productService.createProduct(productInstDto, res);
+
       return res.json({
         message: `Product created successfully`,
         product: newProduct,
       });
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
   };
 

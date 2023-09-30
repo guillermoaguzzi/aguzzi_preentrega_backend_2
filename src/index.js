@@ -9,6 +9,7 @@ const SessionRoutes = require("./routes/sessions.routes");
 const UsersRoutes = require("./routes/users.routes");
 const MailingRoutes = require("./routes/mailing.routes");
 
+
 const app = new App([
   new CartsRoutes(),
   new ProductsRoutes(),

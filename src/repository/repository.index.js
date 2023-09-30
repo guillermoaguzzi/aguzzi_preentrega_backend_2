@@ -7,6 +7,7 @@ const UserRepository = require("./users.repository");
 const { Sessions } = require("../dao/factory");
 const SessionRepository = require("./sessions.repository");
 
+
 const ProductService = new ProductRepository(new Products());
 const CartService = new CartRepository(new Carts(), ProductService);
 const UserService = new UserRepository(new Users());

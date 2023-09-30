@@ -1,4 +1,3 @@
-
 const {SessionService} = require("../repository/repository.index")
 const { API_VERSION } = require("../config/config");
 
