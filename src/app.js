@@ -11,6 +11,7 @@ const compression = require ("express-compression");
 const passport = require("passport");
 const initializePassportJWT = require("./config/passport.strategy.jwt.config");
 const initializePassportGithub = require("./config/passport.strategy.github.config");
+const { setLogger } = require ("./utils/logger.js");
 
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
@@ -80,6 +81,7 @@ class App {
         initializePassportGithub();
         initializePassportJWT()
         this.app.use(passport.initialize());
+        this.app.use(setLogger);
     }
 
     initializeRoutes(routes) {

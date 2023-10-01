@@ -59,6 +59,34 @@ class ProductCtrl {
     }
   };
 
+  loggerTest = async (req, res) => {
+    console.log("getProductById from CONTROLLER executed");
+
+    req.logger.info("DISMISS ALL CONSOLE OUTPUT - logger test ");
+    req.logger.info("---------------------------------------- ");
+    req.logger.debug("DEBUG level for Development Logger - console output CHECK ✓");
+    req.logger.http("HTTP level for Development Logger - console output CHECK ✓");
+    req.logger.info("INFO level for Development and production Logger - console output CHECK ✓");
+    req.logger.warning("WARNING level for Development and production Logger - console output CHECK ✓");
+    req.logger.error("ERROR level for Development and production Logger - console and file output CHECK ✓");
+    req.logger.fatal("FATAL level for Development Logger for Development and production Logger - console and file ooutput CHECK ✓");
+
+    try {
+    const productId = "64f3568a564f7aa08e890d44"
+    const product = await this.productService.loggerTest(productId);
+
+    if (!product) {
+      return res.status(404).json({
+          message: `Product ID ${productId} not found`,
+      });
+      }
+
+    return res.json({ message: `Product ID ${productId} successfully fetched`, product });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
   createProduct = async (req, res) => {
     console.log("createProduct from CONTROLLER executed");
 

@@ -56,6 +56,18 @@ const { EnumErrors, HttpResponse } = require("../middleware/errors.middleware");
     }
   };
 
+  loggerTest = async (productId) => {
+    console.log("getProductById from REPOSITORY executed");
+
+    try {
+      const product = await productModel.findById({ _id: productId });
+      return product;
+
+    } catch (error) {
+    console.log("🚀 ~ file: products.repository.js:67 ~ ProductServiceDao ~ loggerTest= ~ error:", error)
+    }
+  };
+
   createProduct = async (productData, res) => {
     console.log("createProduct from REPOSITORY executed");
 
