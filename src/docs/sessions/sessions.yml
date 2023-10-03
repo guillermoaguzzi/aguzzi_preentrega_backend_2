@@ -1,0 +1,161 @@
+openapi: 3.0.0
+info:
+  title: Sessions Documentation
+  version: 1.0.0
+paths:
+  /session/register:
+    get:
+      summary: Render the registration page
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Registration page rendered successfully
+    post:
+      summary: Register a new user
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /session/login:
+    get:
+      summary: Render the login page
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Login page rendered successfully
+    post:
+      summary: Log in a user
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /session/github:
+    get:
+      summary: Initiate GitHub login
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Redirect to GitHub login page
+  /session/github/callback:
+    get:
+      summary: GitHub login callback
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: Redirect to the application after GitHub login
+  /session/logout:
+    get:
+      summary: Log out the user
+      tags:
+        - Sessions
+      responses:
+        '200':
+          description: User logged out successfully
+components:
+  schemas:
+    UserRegistration:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The first name of the user.
+        lastName:
+          type: string
+          description: The last name of the user.
+        age:
+          type: integer
+          description: The age of the user.
+        username:
+          type: string
+          description: The username chosen by the user.
+        email:
+          type: string
+          description: The email address of the user.
+        password:
+          type: string
+          description: The password chosen by the user.
+        role:
+          type: string
+          description: The role of the user (e.g., "USER", "ADMIN", "PUBLIC").
+      required:
+        - firstName
+        - lastName
+        - age
+        - username
+        - email
+        - password
+        - role
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email address of the user.
+        password:
+          type: string
+          description: The password provided by the user for login.
+      required:
+        - email
+        - password
+    UserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the operation result.
+        user:
+          $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The first name of the user.
+        lastName:
+          type: string
+          description: The last name of the user.
+        age:
+          type: integer
+          description: The age of the user.
+        username:
+          type: string
+          description: The username chosen by the user.
+        email:
+          type: string
+          description: The email address of the user.
+        role:
+          type: string
+          description: The role of the user (e.g., "USER", "ADMIN", "PUBLIC").
+      example:
+        firstName: "Leo"
+        lastName: "Mata"
+        age: 26
+        username: "lmata"
+        email: "lmata@gmail.com"
+        role: "ADMIN"

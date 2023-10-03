@@ -7,8 +7,11 @@ const cookieParser = require("cookie-parser");
 const mongoStore = require("connect-mongo");
 const session = require("express-session");
 const compression = require ("express-compression");
-/* const { exec } = require('child_process'); */
 const passport = require("passport");
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerOpts = require("./config/swagger.config")
+
 const initializePassportJWT = require("./config/passport.strategy.jwt.config");
 const initializePassportGithub = require("./config/passport.strategy.github.config");
 const { setLogger } = require ("./utils/logger.js");
@@ -34,11 +37,13 @@ class App {
         this.env = NODE_ENV || 'development';
         this.port = PORT || 8000;
 
+        this.specs = swaggerJSDoc(swaggerOpts);
+
         this.initializeMiddlewares();
         this.initializeRoutes(routes);
         this.initHandlebars();
     }
-
+    
     getServer() {
         return this.app;
     }
@@ -82,8 +87,9 @@ class App {
         initializePassportJWT()
         this.app.use(passport.initialize());
         this.app.use(setLogger);
+        this.app.use(`/api/${API_VERSION}/docs/`, swaggerUi.serve, swaggerUi.setup(this.specs));
     }
-
+    
     initializeRoutes(routes) {
         routes.forEach((route) => {
             this.app.use(`/api/${API_VERSION}`, route.router);
@@ -101,7 +107,6 @@ class App {
             console.log(`======= ENV: ${this.env} ========`);
             console.log(`🚀 App listening on the port ${this.port}`);
             console.log(`=================================`);
-            /* exec(`start http://localhost:${this.port}`); */
         });
     }
 

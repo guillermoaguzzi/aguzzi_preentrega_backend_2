@@ -1,0 +1,207 @@
+openapi: 3.0.0
+info:
+  title: Users Documentation
+  version: 1.0.0
+paths:
+  /users/current:
+    get:
+      summary: Get the current user
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Current user retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /users:
+    get:
+      summary: Get all users
+      tags:
+        - Users
+      responses:
+        '200':
+          description: All users retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersListResponse'
+    post:
+      summary: Create a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /users/{uid}:
+    get:
+      summary: Get a user by ID
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+    put:
+      summary: Update a user by ID
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: User not found
+    delete:
+      summary: Delete a user by ID
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User deleted successfully
+        '404':
+          description: User not found
+components:
+  schemas:
+    UserRegistration:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The first name of the user.
+        lastName:
+          type: string
+          description: The last name of the user.
+        age:
+          type: integer
+          description: The age of the user.
+        username:
+          type: string
+          description: The username chosen by the user.
+        email:
+          type: string
+          description: The email address of the user.
+        password:
+          type: string
+          description: The password chosen by the user.
+        role:
+          type: string
+          description: The role of the user (e.g., "USER", "ADMIN", "PUBLIC").
+      required:
+        - firstName
+        - lastName
+        - age
+        - username
+        - email
+        - password
+        - role
+    UserUpdate:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The updated first name of the user.
+        lastName:
+          type: string
+          description: The updated last name of the user.
+        age:
+          type: integer
+          description: The updated age of the user.
+        username:
+          type: string
+          description: The updated username chosen by the user.
+        email:
+          type: string
+          description: The updated email address of the user.
+        role:
+          type: string
+          description: The updated role of the user (e.g., "USER", "ADMIN", "PUBLIC").
+    UserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the operation result.
+        user:
+          $ref: '#/components/schemas/User'
+    UsersListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the operation result.
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The first name of the user.
+        lastName:
+          type: string
+          description: The last name of the user.
+        age:
+          type: integer
+          description: The age of the user.
+        username:
+          type: string
+          description: The username chosen by the user.
+        email:
+          type: string
+          description: The email address of the user.
+        role:
+          type: string
+          description: The role of the user (e.g., "USER", "ADMIN", "PUBLIC").
+      example:
+        firstName: "Leo"
+        lastName: "Mata"
+        age: 26
+        username: "lmata"
+        email: "lmata@gmail.com"
+        role: "ADMIN"

@@ -10,5 +10,16 @@ services:
       - TerceraPreEntrega:/data/configdb
       - TerceraPreEntrega:/data/db
 
+  api:
+    build: .
+    container_name: api_container
+    ports:
+      - 9000:9000
+    depends_on:
+      - mongo
+    restart: always
+    volumes:
+      - .:/usr/src/app
+
 volumes:
   TerceraPreEntrega: {}

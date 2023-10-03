@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: Products Documentation
+  version: 1.0.0
+paths:
+  /products/insertion:
+    get:
+      summary: Insert products from the file system
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Products inserted successfully
+  /products/mockingproducts:
+    get:
+      summary: Generate example products
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Example products generated successfully
+  /products:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        '200':
+          description: List of products retrieved successfully
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product created successfully
+  /products/{pid}:
+    get:
+      summary: Get a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: objectId
+      responses:
+        '200':
+          description: Product retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '404':
+          description: Product not found
+    put:
+      summary: Update a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: objectId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '404':
+          description: Product not found
+    delete:
+      summary: Delete a product by ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: objectId
+      responses:
+        '200':
+          description: Product deleted successfully
+        '404':
+          description: Product not found
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: objectId
+          description: The unique identifier for the product in MongoDB.
+        title:
+          type: string
+          description: The title of the product.
+        description:
+          type: string
+          description: The description of the product.
+        code:
+          type: string
+          description: The unique code of the product.
+        price:
+          type: number
+          description: The price of the product.
+        status:
+          type: boolean
+          description: The status of the product.
+        stock:
+          type: number
+          description: The stock quantity of the product.
+        category:
+          type: string
+          description: The category of the product.
+      required:
+        - _id
+        - title
+        - description
+        - code
+        - price
+        - status
+        - stock
+        - category
+      example:
+        _id: "64f3568a564f7aa08e890d44"
+        title: "Washburn X Series Electric Guitar"
+        description: "A versatile electric guitar with great playability and tone"
+        code: "WX200"
+        price: 1200
+        status: true
+        stock: 10
+        category: "Electric Guitar"
+
+    ProductResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message describing the operation result.
+        product:
+          $ref: '#/components/schemas/Product'
