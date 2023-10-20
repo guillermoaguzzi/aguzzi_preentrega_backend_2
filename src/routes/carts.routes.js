@@ -17,8 +17,8 @@ class CartsRoutes {
     this.router.get(`${this.path}`, this.cartCtrl.getAllCarts);
     this.router.get(`${this.path}/:cid`, this.cartCtrl.getCartById);
     this.router.post(`${this.path}`, this.cartCtrl.createCart);
-    this.router.post(`${this.path}/purchase`, this.cartCtrl.purchaseCart);
-    this.router.put(`${this.path}/:cid`, handlePolicies(["USER"]), this.cartCtrl.updateCartById);
+    this.router.post(`/purchase/`, this.cartCtrl.purchaseCart);
+    this.router.put(`${this.path}/:cid`, handlePolicies(["USER", "ADMIN"]), this.cartCtrl.updateCartById);
     this.router.put(`${this.path}/:cid/products/:pid`, this.cartCtrl.updateProductQuantity);
     this.router.delete(`${this.path}/:cid/products/:pid`, this.cartCtrl.deleteProductById);
     this.router.delete(`${this.path}/:cid`, this.cartCtrl.deleteCartProductListById);

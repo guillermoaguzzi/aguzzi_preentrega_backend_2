@@ -17,7 +17,7 @@ class ProductsRoutes {
         this.router.get(`${this.path}`, this.productCtrl.getAllProducts);
         this.router.get(`${this.path}/loggerTest`, this.productCtrl.loggerTest);
         this.router.get(`${this.path}/:pid`, this.productCtrl.getProductById);
-        this.router.post(`${this.path}`, handlePolicies(["ADMIN"]), this.productCtrl.createProduct);
+        this.router.post(`${this.path}`, this.productCtrl.createProduct);
         this.router.put(`${this.path}/:pid`, handlePolicies(["ADMIN"]), this.productCtrl.updateProductById);
         this.router.delete(`${this.path}/:pid`, this.productCtrl.deleteProductById);
     }

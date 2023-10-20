@@ -7,7 +7,7 @@
     "start:prod": "cross-env NODE_ENV=production nodemon ./src/index.js",
     "start:test": "cross-env NODE_ENV=test nodemon .src/index.js",
     "loggerTest": "artillery quick --count 20 --num 20 http://localhost:8000/api/v1/products/loggerTest/ -o loggerTest.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/supertest.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -47,8 +47,11 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "artillery": "^2.0.0-31",
+    "chai": "^4.3.10",
     "faker": "^6.6.6",
-    "nodemon": "^2.0.22"
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
   },
   "repository": {
     "type": "git",

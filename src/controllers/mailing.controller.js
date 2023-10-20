@@ -13,8 +13,9 @@ class MailingCtrl {
         try {
         const emailAdress = req.body.email 
 
-        const emails = await this.mailingService.sendEmail(res, emailAdress);
-        return { ok: true, message: `Email sent to ${emails}` };
+        const emails = await this.mailingService.sendEmail(emailAdress, res);
+        console.log(`Email succesfully sent to ${emails}`);
+        return res.send({ ok: true, message: `Email sent to ${emailAdress}` });
         } catch (error) {
         return res.status(500).json({ message: error.message });
         }};

@@ -3,8 +3,12 @@ const mongoose = require("mongoose");
 const ticketsCollection = 'tickets';
 
 const ticketsSchema = new mongoose.Schema({
-  code: {
+  dateTime: {
     type: String,
+    required: true
+  },
+  details: {
+    type: Array,
     required: true
   },
   amount: {

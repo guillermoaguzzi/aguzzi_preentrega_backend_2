@@ -2,24 +2,23 @@ const userModel = require("../models/users.model")
 const { createHashValue, isValidPasswd } = require("../utils/bcrypt");
 const passport = require("passport");
 const { generateJWT } = require("../utils/jwt");
-const {CartService} = require ("../repository/repository.index");
+const CartService = require ("./carts.repository");
 
-
-class SessionServiceDao {
-    constructor(dao, CartService) {
-        this.dao = dao;
-        this.cartService = CartService;
+class SessionService {
+    constructor() {
+        this.cartService = new CartService();
     }
 
     registerUser = async (req, res) => {
+        console.log("registerUser from REPOSITORY executed");
 
         try {
-            const firstName = req.body.firstName ?? req.params.firstName;
+            const firstName = req.body.firstName ?? req.params.firstName ?? req.firstName;
             const lastName = req.body.lastName ?? req.params.lastName;
             const age = req.body.age ?? req.params.age;
             const username = req.body.username ?? req.params.username;
             const email = req.body.email ?? req.params.email;
-            const role = req.body.role ?? req.params.role;
+            const role = req.body.role || "USER";
             const pswHashed = await createHashValue(req.body.password ?? req.params.password);
 
             const findUser = await userModel.findOne({ $or: [{ username }, { email }] });
@@ -28,27 +27,40 @@ class SessionServiceDao {
                 return res.status(409).json({ message: "username and/or email already exist" });
             }
 
-            let cartData = {};
-            const newCart = await this.cartService.createCart(cartData);
-            console.log(newCart);
-
-            const newUserData = {
-                firstName,
-                lastName,
-                age,
-                username,
-                email,
-                password: pswHashed,
-                cart: newCart._id,
-                role
-            };
-
+            let newUserData;
+            
+            if (role === "USER") {
+                let cartData = {};
+                const newCart = await this.cartService.createCart(cartData);
+    
+                newUserData = {
+                    firstName,
+                    lastName,
+                    age,
+                    username,
+                    email,
+                    password: pswHashed,
+                    cart: newCart._id,
+                    role
+                };
+            } else {
+                newUserData = {
+                    firstName,
+                    lastName,
+                    age,
+                    username,
+                    email,
+                    password: pswHashed,
+                    role
+                };
+            }
+            
             const newUser = await userModel.create(newUserData);
     
             req.session.user = { ...newUserData };
             return newUserData.email
         } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:42 ~ sessionServiceDao ~ registerUser= ~ error:", error)
+        console.log("🚀 ~ file: users.repository.js:65 ~ sessionServiceDao ~ registerUser= ~ error:", error)
         }
     }
 
@@ -56,32 +68,42 @@ class SessionServiceDao {
         console.log("loginUser from REPOSITORY executed");
     
         try {
-            const usernameEmail = req.params.usernameEmail ?? req.body.username ?? req.body.email;
-            const password = req.params.password ?? req.body.password;
+
+            const usernameEmail = req.body.usernameEmail ?? req.body.email ?? req.body.username;
+            const password = req.body.password;
     
             const findUserUsernameEmail = await userModel.findOne({ $or: [{ username: usernameEmail }, { email: usernameEmail }] });
-    
+
             if (!findUserUsernameEmail) {
-                return res.status(401).json({ message: "username or email not found"});
+                return null;
             }
     
             const isValidComparePsw = await isValidPasswd(password, findUserUsernameEmail.password);
     
             if (!isValidComparePsw) {
-                return res.status(401).json({message: `Wrong credentials`});
+                return undefined;
             }
     
-            req.session.user = {...findUserUsernameEmail, password: "",};
-            req.session.userName = findUserUsernameEmail.firstName;
-            req.session.userRol = findUserUsernameEmail.role;
-    
+            findUserUsernameEmail.lastActivity = new Date();
+            await findUserUsernameEmail.save();
+
+            
             const signUser = {
                 email: findUserUsernameEmail.email,
                 role: findUserUsernameEmail.role,
                 id: findUserUsernameEmail._id,
             };
-    
+            
             const token = await generateJWT({ ...signUser });
+            
+            req.session.user = {...findUserUsernameEmail, password: "",};
+            req.session.email = findUserUsernameEmail.email;
+            req.session.userName = findUserUsernameEmail.firstName + " " + findUserUsernameEmail.lastName;
+            if(findUserUsernameEmail.cart) {
+                req.session.userCart = findUserUsernameEmail.cart;
+            };
+            req.session.userRol = findUserUsernameEmail.role;
+            req.session.token = token;
 
             const user = {
                 email: findUserUsernameEmail.email,
@@ -144,4 +166,4 @@ class SessionServiceDao {
     }
 }
 
-module.exports = SessionServiceDao;
+module.exports = SessionService;

@@ -2,10 +2,9 @@ const express  = require("express");
 const cors = require("cors");
 const displayRoutes = require("express-routemap");
 const handlebars = require("express-handlebars");
-const { DB_USER, DB_PASSWORD, DB_NAME, NODE_ENV, PORT, API_VERSION } = require("./config/config");
+const { DB_HOST, DB_PORT, DB_NAME, NODE_ENV, PORT, API_VERSION } = require("./config/config");
 const cookieParser = require("cookie-parser");
 const mongoStore = require("connect-mongo");
-const mongoose = require("mongoose");
 const session = require("express-session");
 const compression = require ("express-compression");
 const passport = require("passport");
@@ -28,7 +27,6 @@ class App {
     env;
     port;
     server;
-    MONGO_URL;
     
     constructor(routes){
         this.app = express();
@@ -37,20 +35,9 @@ class App {
         this.app.set("io", this.io);
 
         this.env = NODE_ENV || 'development';
-        this.port = PORT || 8080;
+        this.port = PORT || 8000;
 
         this.specs = swaggerJSDoc(swaggerOpts);
-
-        this.MONGO_URL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@coderhousebackend.rnpebhq.mongodb.net/`;
-    
-        const connection = mongoose
-        .connect(this.MONGO_URL)
-        .then((conn) => {
-            console.log("===MONGO CONNECTION STABLISHED===");
-        })
-        .catch((err) => {
-            console.log("🚀 ~ file: app.js:25 ~ err:", err);
-        });
 
         this.initializeMiddlewares();
         this.initializeRoutes(routes);
@@ -66,8 +53,6 @@ class App {
             done()
         });
     }
-
-    
 
     initializeMiddlewares() {
         this.app.use(cors());
@@ -86,11 +71,10 @@ class App {
                 methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
                 })
             );
-            
         this.app.use(
             session({
             store: mongoStore.create({
-                mongoUrl: this.MONGO_URL,
+                mongoUrl: `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
                 mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
                 ttl: 60,
             }),
@@ -120,7 +104,7 @@ class App {
         this.httpServer.listen(this.port, () => {
             displayRoutes(this.app);
             console.log(`=================================`);
-            console.log(`======= ENV: ${this.env}${DB_USER}:${DB_PASSWORD} ========`);
+            console.log(`======= ENV: ${this.env} ========`);
             console.log(`🚀 App listening on the port ${this.port}`);
             console.log(`=================================`);
         });

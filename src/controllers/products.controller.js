@@ -1,11 +1,11 @@
 const  ProductDto = require ("../dto/product.dto");
 const productsData = require("../db/products.json");
-const {ProductService} = require ("../repository/repository.index");
+const ProductService = require ("../repository/products.repository");
 const handlePolicies = require("../middleware/handle-policies.middleware");
 
 class ProductCtrl {
   constructor() {
-    this.productService = ProductService;
+    this.productService = new ProductService();
   }
 
   insertProducts = async (req, res ) => {
@@ -91,12 +91,23 @@ class ProductCtrl {
     console.log("createProduct from CONTROLLER executed");
 
     try {
-      const productInstDto = /* new ProductDto */(req.body);
-      const newProduct = await this.productService.createProduct(productInstDto, res);
 
-      return res.json({
-        message: `Product created successfully`,
-        product: newProduct,
+      const userToken = req.session.token
+            console.log(userToken);
+
+            if (!userToken) {
+                return res.status(401).json({ message: "User token not found" });
+            }
+    
+            req.headers.authorization = `Bearer ${userToken}`;
+    
+            handlePolicies(["ADMIN","PREMIUM"])(req, res, async () => {
+              const newProduct = await this.productService.createProduct(req, res);
+        
+              return res.json({
+                message: `Product created successfully`,
+                product: newProduct,
+            });
       });
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -131,17 +142,17 @@ class ProductCtrl {
     console.log("deleteProductById from CONTROLLER executed");
     
     try {
-      const productToDelete = await this.productService.deleteProductById(req.params.pid)
+
+      const productDeleted = await this.productService.deleteProductById(req.params.pid)
     
-      //Could become a helper (see code line 40 and 77)
-      if (!productToDelete) {
+      if (!productDeleted) {
         return res.status(404).json({
             message: `Product ID ${req.params.pid} not found`,
         });
         }
 
       return res.json({
-        message: `Product successfully deleted`,
+        message: `Product successfully deleted`, productDeleted,
       })
     } catch (error) {
       return res.status(500).json({ message: error.message });

@@ -1,77 +1,156 @@
 <div style="margin-left: 10px;">
+
   <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
 
-
     <div style="display: flex; flex-direction: column;">
-      <h1 style="font-size: 50px;">Product List</h1>
+      <h1 style="font-size: 50px;">CODERHOUSE E-COMMERCE</h1>
       <p style="font-size: 20px; margin-top: -30px; margin-bottom: 50px;">Welcome, {{userName}}!</p>
-      <p style="font-size: 20px; margin-top: -50px; margin-bottom: 50px; color: gray;">Rol: {{userRol}}</p>
+      <p style="font-size: 20px; margin-top: -50px; margin-bottom: 50px; color: gray;">{{userRol}}</p>
     </div>
 
-
-    <div style="display: flex; flex-direction: column; ">
+    <div style="display: flex; flex-direction: row; ">
+        {{#if isUserAdmin}}
+          <form action="/api/{{API_VERSION}}/session/manageUsers" method="GET">
+              <button style="margin: 0 10px;">Manage Users</button>
+          </form>
+        {{/if}}
       <form action="/api/{{API_VERSION}}/session/logout" method="GET">
-      <a href="/api/{{API_VERSION}}/session/login">
-        <button style="margin: 0 10px;">LOGOUT</button>
-      </a>
+        <a href="/api/{{API_VERSION}}/session/login">
+          <button style="margin: 0 10px;">Log Out</button>
+        </a>
       </form>
     </div>
 
   </div>
   
 
+  <form action="/api/{{API_VERSION}}/view/products" method="POST">
+    {{#if productNotAdded}}
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 3px solid #030303; padding: 10px; border-radius: 10px; background: #c21515">
+          <p style="color: white">As an Admin, you cannot add products because you don't have a cart!</p>
+        </div>
+      </div>
+    {{/if}}
 
-  <form style="display: flex; flex-direction: row; align-items: center; margin: 20px 0;" action="/api/{{API_VERSION}}/view/products" method="GET">
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; margin: 20px 0;" >
+      
+      <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+        <label for="limit">Products per page:</label>
+        <input style="width: 2rem; margin-left: 0.5rem;" type="number" id="limit" name="limit" min="1" value={{limit}}>
+      </div>
+      
+      <div>
+        <label style="margin-left: 15px;" for="category">Category:</label>
+        <select  style="margin-left: 0.5rem;" id="category" name="category">
+          <option value="{{noCategory}}">Select an option</option>
+          {{#each categories}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
 
-    <label for="limit">Products per page:</label>
-    <input style="margin-left: 5px;" type="number" id="limit" name="limit" min="1" value={{limit}}>
-    
-    <div>
-      <label style="margin-left: 15px;" for="category">Category:</label>
-      <select style="margin-left: 5px;" id="category" name="category">
-        <option value="{{noCategory}}">Seleccione una opción</option>
-        {{#each categories}}
-          <option value="{{this}}">{{this}}</option>
-        {{/each}}
-      </select>
+      <div>
+        <label style="margin-left: 15px;" for="stock">Stock:</label>
+        <select style="margin-left: 0.5rem;" id="stock" name="stock">
+          <option value="null">All</option>
+          <option value="true">In Stock</option>
+          <option value="false">Out of Stock</option>
+        </select>
+      </div>
+
+      <div>
+        <label style="margin-left: 15px;" for="sortOption">Sort by price:</label>
+        <select style="margin-left: 5px;" id="sortOption" name="sortOption">
+          <option value="">Not sorted</option>
+          <option value="-1">Major to minor</option>
+          <option value="1">Minor to major</option>
+        </select>
+      </div>
+
+      <button style="margin-left: 30px;" type="submit">Search</button>
     </div>
-
-    <div>
-      <label style="margin-left: 15px;" for="stock">Stock:</label>
-      <select style="margin-left: 5px;" id="stock" name="stock">
-        <option value="null">All</option>
-        <option value="true">In Stock</option>
-        <option value="false">Out of Stock</option>
-      </select>
-    </div>
-
-    <div>
-      <label style="margin-left: 15px;" for="sortOption">Sort by price:</label>
-      <select style="margin-left: 5px;" id="sortOption" name="sortOption">
-        <option value="">Not sorted</option>
-        <option value="-1">Major to minor</option>
-        <option value="1">Minor to major</option>
-      </select>
-    </div>
-
-    <button style="margin-left: 30px;" type="submit">Buscar</button>
   </form>
 
-  <div style="margin: 50px 0;">
-    {{#each products}}
-      <div style="display: flex; flex-direction: row; margin-top: 30px; font-size: 25px; font-weight: bold;" >
-        <p>{{this.title}}</p>
-        <p style="margin-left: auto; padding-right: 800px;">${{this.price}}</p>
-      </div>
-      <div style="display: flex; flex-direction: row; margin-top: -25px;">
-        <p>{{this.description}}</p>
-        <p style="margin-left: auto; padding-right: 800px;">{{this.stock}} units left</p>
-      </div>
-      <button>Add to Cart</button>
-    {{/each}}
+  <div style="display: flex; justify-content: space-between;">
+    <!-- Product -->
+    <div style="width: 50%; display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 10px;">
+      <h1>Product List</h1>
+      {{#each products}}
+        <form action="/api/{{@root.API_VERSION}}/view/products" method="POST">
+          <div style="width: 91%; margin: 3px 10px 5px 10px; display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 20px;">
+            <div style="font-size: 25px; font-weight: bold; text-align: center;">
+              <h4 style="margin-bottom: -10px;">{{this.title}}</h4>
+              <p style="margin-bottom: -10px;">${{this.price}}</p>
+            </div>
+            <p style="margin-bottom: -15px; font-size: 0.9rem;">{{this.description}}</p>
+            <p>{{this.stock}} units left</p>
+            <div  style="display: flex; flex-direction: column; justify-content: center; center; border: 1px solid #ccc; padding: 10px; border-radius: 10px;">
+              <p style="font-size: 0.7rem; text-align:center; margin-top: -5px; margin-bottom: 1px;">Max to purchase: {{this.stock}} units</p>
+              <div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 3px;">
+                <label for="units">Units: </label>
+                <input style="margin-left: 5px; width: 65px" type="number" id="units" name="units" min="1" max="{{this.stock}}" value={{units}}>
+              </div>
+              <input type="hidden" name="productToAdd" value="{{this._id}}">
+              <button type="submit">Add to Cart</button>
+            </div>
+          </div>
+        </form>
+      {{/each}}
+    </div>
+
+    <!-- Cart -->
+    <div style="width: 50%; display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 10px;">
+      {{#if formattedProducts}}
+        <div style="display: flex; flex-direction: row; align-items: center;{{!--  justify-content: center --}}">
+          <h1>Your Cart</h1>
+          <form action="/api/{{API_VERSION}}/view/ticket" method="POST">
+            <button style="margin: 0 10px;">Purchase Cart</button>
+          </form>
+        </div>
+        {{#each formattedProducts}}
+          <div style="width: 91%; margin: 3px 10px 5px 10px; display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 20px;" >
+            <form action="/api/{{@root.API_VERSION}}/view/products" method="POST">
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                <h4 style="margin-bottom: -3px;">{{this.title}}</h4>
+                <p style="margin-bottom: -5px;">Product Code: {{this.code}}</p>
+                <p style="margin-bottom: -5px;">Unitary price: ${{this.price}}</p>
+                <p style="padding-bottom: -3px ;">Quantity: {{this.quantity}}</p>
+              </div>
+              <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 10px;margin: 0 3rem 0 3rem;">
+                <p style="font-size: 0.7rem; text-align:center; margin-top: -5px; margin-bottom: 1px;">Max to purchase: {{this.stock}} units</p>
+                <div style="display: flex; flex-direction: row; align-items: center; margin-bottom: 3px;">
+                  <label for="changeQuantity">Change Quantity: </label>
+                  <input style="margin-left: 5px; width: 65px" type="number" id="changeQuantity" name="changeQuantity" min="1" max="{{this.stock}}" value={{units}}>
+                </div>
+                <div style="width: 12rem">
+                  <input type="hidden" name="productToUpdate" value="{{this._id}}">
+                  <button style="width: 100%" type="submit">Update</button>
+                </div>
+              </div>
+            </form>
+            <form action="/api/{{@root.API_VERSION}}/view/products" method="POST">
+              <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 1rem 3rem 1rem 3rem">
+                <input type="hidden" name="productToDelete" value="{{this._id}}">
+                <button style="width: 14rem" type="submit">DELETE PRODUCT</button>
+              </div>
+            </form>
+          </div>
+        {{/each}}
+      {{else}}
+        {{#if isUserNotAdmin}}
+          <h2>Your Cart is empty!</h2>
+        {{/if}}
+      {{/if}}
+      {{#if isUserAdmin}}
+        <h1>No Cart (admin mode)</h1>
+      {{/if}}
+    </div>
   </div>
 
-  <div style="display: flex; flex-direction: row; align-items: center">
+
+<!-- Pages -->
+  <div style="display: flex; flex-direction: row; align-items: center; justify-content: center">
     {{#if firstPageExist}}
       <a href="/api/{{API_VERSION}}/view/products?limit={{limit}}&page={{firstPage}}&category={{categoryURL}}&stock={{stock}}&sortOption={{sortOption}}">
         <button style="margin: 0 10px;">first page</button>
@@ -85,7 +164,7 @@
     {{/if}}
 
     {{#each previousPagesNumbers}}
-      <a href="/api/{{API_VERSION}}/view/products?limit={{@root.limit}}&page={{this}}&category={{@root.categoryURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
+      <a href="/api/{{../API_VERSION}}/view/products?limit={{../limit}}&page={{this}}&category={{../categoryURL}}&stock={{../stock}}&sortOption={{../sortOption}}">
         <button style="margin: 0 10px;">{{this}}</button>
       </a>
     {{/each}}
@@ -95,7 +174,7 @@
     </div>
 
     {{#each followingPagesNumbers}}
-      <a href="/api/{{API_VERSION}}/view/products?limit={{@root.limit}}&page={{this}}&category={{@root.categoryURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
+      <a href="/api/{{../API_VERSION}}/view/products?limit={{../limit}}&page={{this}}&category={{../categoryURL}}&stock={{../stock}}&sortOption={{../sortOption}}">
         <button style="margin: 0 10px;">{{this}}</button>
       </a>
     {{/each}}
@@ -113,3 +192,5 @@
     {{/if}}
   </div>
 </div>
+
+

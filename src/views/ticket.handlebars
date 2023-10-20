@@ -1,0 +1,46 @@
+<div style="margin-left: 10px;">
+  <div style="display: flex; flex-direction: row; align-items: center;">
+
+    <div style="display: flex; flex-direction: column;">
+      <h1 style="font-size: 50px;">CODERHOUSE E-COMMERCE</h1>
+      <h2 style="margin-top: -2.5rem; font-size: 30px;">Manage Users</h2>
+      <p style="font-size: 20px; margin-top: -30px; margin-bottom: 50px;">{{userName}}</p>
+      <p style="font-size: 20px; margin-top: -50px; margin-bottom: 50px; color: gray;">{{userRol}}</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; ">
+      <form action="/api/{{API_VERSION}}/view/products" method="GET">
+        <button style="margin-left: 20;">Back to Products</button>
+      </form>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; ">
+      <form action="/api/{{API_VERSION}}/session/logout" method="GET">
+      <a href="/api/{{API_VERSION}}/session/login">
+        <button style="margin: 0 10px;">LOGOUT</button>
+      </a>
+      </form>
+    </div>
+  </div>
+
+  <div style="margin-left: 10px; width: 25rem; border: 1px solid #ccc; padding: 20px;">
+    <h1 style="font-size: 25;">Coderhouse Backend</h1>
+    <h1 style="font-size: 20;">Ticket Details</h1>
+    <p>----------------------------------</p>
+    <p>Date: {{ticketDateTime}}</p>
+    <p>Purchased By: {{ticketPurchasedBy}}</p>
+    <p>----------------------------------</p>
+    <p>Detalis of purchase:</p>
+            {{#each ticketDetails}}
+              <div>
+                <h4>{{this.title}}</h4>
+                <p>Product Code: {{this.code}}</p>
+                <p>Unitary price: ${{this.price}}</p>
+                <p>Quantity: {{this.quantity}}</p>
+              </div>
+        {{/each}}
+    <p>----------------------------------</p>
+    <p>Amount: ${{ticketAmount}}</p>
+  </div>
+
+</div>

@@ -1,11 +1,13 @@
 const productModel = require("../models/products.models");
 const { generateProducts } = require("../utils/mocks/generate.products");
 const { EnumErrors, HttpResponse } = require("../middleware/errors.middleware");
+const MailingService = require ("../repository/mailing.repository");
 
-  class ProductServiceDao {
-  constructor(dao) {
-    this.dao = dao;
+
+  class ProductService {
+  constructor() {
     this.httpResp = new HttpResponse();
+    this.mailingService = new MailingService;
   }
 
   insertProducts = async (productsData) => {
@@ -36,13 +38,13 @@ const { EnumErrors, HttpResponse } = require("../middleware/errors.middleware");
 
   getAllProducts = async () => {
     console.log("getAllProducts from REPOSITORY executed");
-
-    try {
       const products = await productModel.find({});
+
+      if (products = undefined || null) {
+        throw new Error("Internal Error Server")
+      }
+      
       return products;
-    } catch (error) {
-    console.log("🚀 ~ file: products.repository.js:42 ~ ProductServiceDao ~ getAllProducts= ~ error:", error)
-    }
   };
 
   getProductById = async (pid) => {
@@ -68,10 +70,16 @@ const { EnumErrors, HttpResponse } = require("../middleware/errors.middleware");
     }
   };
 
-  createProduct = async (productData, res) => {
+  createProduct = async ( req, res) => {
     console.log("createProduct from REPOSITORY executed");
 
-    try {
+    const productData = req.body
+
+    const createdBy = {
+      user: req.session.user._doc.email,
+      role: req.session.user._doc.role
+    };
+
       if (
         (!productData.title || typeof productData.title !== 'string') ||
         (!productData.description || typeof productData.description !== 'string') ||
@@ -98,15 +106,18 @@ const { EnumErrors, HttpResponse } = require("../middleware/errors.middleware");
         );
       }
 
+      productData.createdBy = createdBy;
+
       const product = await productModel.create(productData);
-      return product;
-    } catch (error) {
+
+      if (product === undefined || null) {
         return this.httpResp.Error(
           res,
           `Error creating product`,
           error?.message
         );
       }
+      return product;
   };
 
   updateProductById = async (pid, productData) => {
@@ -124,12 +135,21 @@ const { EnumErrors, HttpResponse } = require("../middleware/errors.middleware");
     console.log("deleteProductById from REPOSITORY executed");
 
     try {
-      const delProd = await productModel.deleteOne({ _id: pid });
-      return delProd;
+      const product = await productModel.findById({ _id: pid });
+      console.log("product: ", product);
+      if(product.createdBy.role === "PREMIUM") {
+        const emailAdress = product.createdBy.user;
+
+        const emails = await this.mailingService.sendDeletedProductEmail(emailAdress, product);
+        console.log(`Email succesfully sent to ${emailAdress}`);
+      }
+
+      await productModel.deleteOne({ _id: pid });
+      return product;
     } catch (error) {
     console.log("🚀 ~ file: products.repository.js:86 ~ ProductServiceDao ~ deleteProductById ~ error:", error)
     }
   };
 }
 
-module.exports = ProductServiceDao;
+module.exports = ProductService;

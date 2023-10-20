@@ -14,10 +14,11 @@ class UsersRoutes {
     initRoutes() {
         this.router.get(`${this.path}/current`, this.userCtrl.currentUser);
         this.router.get(`${this.path}`, handlePolicies(["ADMIN"]), this.userCtrl.getAllUsers);
-        this.router.get(`${this.path}/:uid`, handlePolicies(["ADMIN"]), this.userCtrl.getUserById);
+        this.router.get(`${this.path}/:uid`, this.userCtrl.getUserById);
         this.router.post(`${this.path}`, handlePolicies(["ADMIN"]), this.userCtrl.createUser);
-        this.router.put(`${this.path}/:pid`, handlePolicies(["ADMIN"]), this.userCtrl.updateUserById);
-        this.router.delete(`${this.path}/:uid`, handlePolicies(["ADMIN"]), this.userCtrl.deleteUserById);
+        this.router.put(`${this.path}/:uid`, handlePolicies(["ADMIN"]), this.userCtrl.updateUserById);
+        this.router.delete(`${this.path}/:uid`, this.userCtrl.deleteUserById);
+        this.router.delete(`${this.path}/`, handlePolicies(["ADMIN"]), this.userCtrl.deleteInactiveUsers);
     }
 }
 

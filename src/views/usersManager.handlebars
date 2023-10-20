@@ -1,0 +1,156 @@
+<div style="margin-left: 10px;">
+  <div style="display: flex; flex-direction: row; align-items: center;">
+
+
+    <div style="display: flex; flex-direction: column;">
+      <h1 style="font-size: 50px;">CODERHOUSE E-COMMERCE</h1>
+      <h2 style="margin-top: -2.5rem; font-size: 30px;">Manage Users</h2>
+      <p style="font-size: 20px; margin-top: -30px; margin-bottom: 50px;">{{userName}}!</p>
+      <p style="font-size: 20px; margin-top: -50px; margin-bottom: 50px; color: gray;">{{userRol}}</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; ">
+      <form action="/api/{{API_VERSION}}/view/products" method="GET">
+        <button style="margin-left: 20;">Back to Products</button>
+      </form>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; ">
+      <form action="/api/{{API_VERSION}}/session/logout" method="GET">
+      <a href="/api/{{API_VERSION}}/session/login">
+        <button style="margin: 0 10px;">LOGOUT</button>
+      </a>
+      </form>
+    </div>
+  </div>
+
+
+<div style="display: flex; justify-content: space-between;">
+  {{!-- ALL USERS --}}
+  <div style="width: 50%; margin: 3px 6px 0 0; display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 10px;">
+    <h1>Get Users by ROLE</h1>
+    <form style="display: flex; flex-direction: column; align-items: center; margin: 20px 0;" action="/api/{{API_VERSION}}/view/usersManager" method="GET">
+      <div style="display: flex; flex-direction: row; align-items: center;" >
+        <label for="limit">users per page:</label>
+        <input style="margin-left: 5px;" type="string" id="limit" name="limit" pattern="^(0?[1-9]|1[0-9]|20)$" title="Enter a number between 1 and 20" value={{limit}}>
+        <button style="margin-left: 30px;" type="submit">GO!</button>
+      </div>
+      <div style="margin-top: 1rem;">
+        <label style=" margin-left: -4.4rem;" for="role">Filter by role:</label>
+        <select style="width: 10.6rem" id="role" name="role">
+          <option value="{{noRole}}">Select an option</option>
+          {{#each roles}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </form>
+    {{#if users}}
+      {{#each users}}
+        <div  style="width: 98%; margin: 3px 10px 5px 10px; display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 20px;">
+          <h3 style="margin-bottom: -10px; margin-top: 10px;">{{this.firstName}} {{this.lastName}}</h3>
+          <p style="margin-bottom: -10px;">ID: {{this._id}}</p>
+          <p style="margin-bottom: 10px; ">{{this.role}}</p>
+        </div>
+      {{/each}}
+      {{!-- PAGE RELATED --}}
+      <div style="display: flex; flex-direction: row; align-items: center">
+        {{#if firstPageExist}}
+          <a href="/api/{{API_VERSION}}/view/users?limit={{limit}}&page={{firstPage}}&role={{roleURL}}">
+            <button style="margin: 0 10px;">first page</button>
+          </a>
+        {{/if}}
+
+        {{#if hasPrevPage}}
+          <a href="/api/{{API_VERSION}}/view/usersManager?limit={{limit}}&page={{prevPage}}&role={{roleURL}}">
+            <button style="margin: 0 10px;">previous page</button>
+          </a>
+        {{/if}}
+
+        {{#each previousPagesNumbers}}
+          <a href="/api/{{@root.API_VERSION}}/view/usersManager?limit={{@root.limit}}&page={{this}}&role={{@root.roleURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
+            <button style="margin: 0 10px;">{{this}}</button>
+          </a>
+        {{/each}}
+
+        <div style="margin: 0 10px;">
+          <p>page {{page}} of {{totalPages}}</p>
+        </div>
+
+        {{#each followingPagesNumbers}}
+          <a href="/api/{{@root.API_VERSION}}/view/usersManager?limit={{@root.limit}}&page={{this}}&role={{@root.roleURL}}&stock={{@root.stock}}&sortOption={{@root.sortOption}}">
+            <button style="margin: 0 10px;">{{this}}</button>
+          </a>
+        {{/each}}
+
+        {{#if hasNextPage}}
+          <a href="/api/{{API_VERSION}}/view/usersManager?limit={{limit}}&page={{nextPage}}&role={{roleURL}}">
+            <button style="margin: 0 10px;">next page</button>
+          </a>
+        {{/if}}
+
+        {{#if lastPageExist}}
+          <a href="/api/{{API_VERSION}}/view/usersManager?limit={{limit}}&page={{lastPage}}&role={{roleURL}}">
+            <button style="margin: 0 10px;">last page</button>
+          </a>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+
+  <!-- INDIVIDUAL USER -->
+<div style="width: 50%; margin-top: 3px; display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 10px; border-radius: 10px;">
+  <h1>Find User by ID</h1>
+  <div style="display: flex; flex-direction: row; align-items: center; justify-content: center">
+    <form style="display: flex; flex-direction: row; align-items: center; margin: 20px 0;" action="/api/{{API_VERSION}}/view/usersManager" method="GET">
+      <label for="uid">Insert user ID:</label>
+      <input style="margin-left: 5px;" type="string" id="uid" name="uid" pattern="^[0-9a-fA-F]{24}$" title="ID must be 24 characters, and only characters from 0-9 and from a-f/A-F" required value={{uid}}>
+      <button style="margin-left: 30px;" type="submit">Search</button>
+    </form>
+  </div>
+
+  {{#if user}}
+    <div style="margin-left: 4.3rem;">
+      {{#each user}}
+        <h1>{{this.firstName}} {{this.lastName}}</h1>
+        <h4>ID: {{this._id}}</h4>
+        <p style="margin-bottom: -5px;">Age: {{this.age}}</p>
+        <p style="margin-bottom: -5px;">Username: {{this.username}}</p>
+        <p style="padding-bottom: 10px ;">Email: {{this.email}}</p>
+        <p style="margin-bottom: -5px;">Role: {{this.role}}</p>
+        <p style="padding-bottom: 10px ;">Last activity: {{this.lastActivity}}</p>
+        <form action="/api/{{@root.API_VERSION}}/view/usersManager" method="POST">
+          <div>
+            <label for="newRole">Select role for user:</label>
+            <select id="newRole" name="newRole">
+              <option value="SELECT AN OPTION">Select an option</option>
+              <option value="PUBLIC">PUBLIC</option>
+              <option value="USER">USER</option>
+              <option value="ADMIN">ADMIN</option>
+            </select>
+            <input type="hidden" name="userToUpdate" value="{{this._id}}">
+            <input type="hidden" name="userToUpdatePreviousRole" value="{{this.role}}">
+            <button style="margin-left: 0.5rem ;" type="submit">Update user</button>
+          </div>
+        </form>
+        <form  style="text-align: center ;" action="/api/{{@root.API_VERSION}}/view/usersManager" method="POST">
+          <div style="display: flex; flex-direction: column; justify-content: center; margin-top: 1rem;">
+            <input type="hidden" name="userToDelete" value="{{this._id}}">
+            <button type="submit">Delete user</button>
+          </div>
+        </form>
+      {{/each}}
+          {{else}}
+        <p>User ID {{userToDelete}} not found</p>
+    {{/if}}
+    </div>
+    {{#if userDeleted}}
+        <p>User ID {{userToDelete}} has been deleted</p>
+    {{/if}}
+    {{#if userUpdated}}
+        <p>User ID {{userToUpdate}} role has been updated to {{newRole}}</p>
+    {{/if}}
+</div>
+
+
+</div>

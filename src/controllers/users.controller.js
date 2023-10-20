@@ -1,11 +1,11 @@
 /* const  UserDto = require ("../dto/user.dto"); */
-const {UserService} = require ("../repository/repository.index");
-
+const UserService = require ("../repository/users.repository");
+const handlePolicies = require("../middleware/handle-policies.middleware");
 
 
 class UserCtrl {
     constructor() {
-        this.userService = UserService;
+        this.userService = new UserService();
     }
 
 
@@ -13,8 +13,10 @@ class UserCtrl {
         console.log("currentUser from CONTROLLER executed");
 
         try {
-        const user = await this.userService.currentUser(req, res);
-        console.log(`Current user: `, user);
+            const userForRepository = req.session.email;
+            const user = await this.userService.currentUser(req, res);
+            console.log("user: ", user)
+            return res.json({ message: `Current user`, user});
         } catch (error) {
         return res.status(500).json({ message: error.message });
         }
@@ -39,15 +41,25 @@ class UserCtrl {
 
         try {
 
-            const user = await this.userService.getUserById(uid);
+            const userToken = req.session.token
 
-        if (!user) {
-            return res.status(404).json({
-                message: `User ID ${uid} not found`,
-            });
+            if (!userToken) {
+                return res.status(401).json({ message: "User token not found" });
             }
+    
+            req.headers.authorization = `Bearer ${userToken}`;
+    
+            handlePolicies(["ADMIN"])(req, res, async () => {
+                const user = await this.userService.getUserById(uid);
 
-        return res.json({ message: `User ID ${uid} successfully fetched`, user });
+                if (!user) {
+                    return res.status(404).json({
+                        message: `User ID ${uid} not found`,
+                    });
+                    }
+
+                return res.json({ message: `User ID ${uid} successfully fetched`, user });
+            });
         } catch (error) {
         return res.status(500).json({ message: error.message });
         }
@@ -113,6 +125,27 @@ class UserCtrl {
 
         return res.json({
             message: `user successfully deleted`,
+        })
+        } catch (error) {
+        return res.status(500).json({ message: error.message });
+        }
+    }
+
+    deleteInactiveUsers = async (req, res) => {
+        console.log("deleteInactiveUsers from CONTROLLER executed");
+        
+
+        try {
+        const userToDelete = await this.userService.deleteInactiveUsers()
+        
+        if (userToDelete === null) {
+            return res.status(404).json({
+                message: `No inactive Users `,
+            });
+            }
+
+        return res.json({
+            message: `user/s successfully deleted`,
         })
         } catch (error) {
         return res.status(500).json({ message: error.message });

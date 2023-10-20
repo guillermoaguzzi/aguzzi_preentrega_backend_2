@@ -11,9 +11,10 @@ class SessionRoutes {
     }
 
     initSessionRoutes() {
+        this.router.get(`${this.path}/login`, this.sessionController.getLoginPage);
+        this.router.get(`${this.path}/manageUsers`, this.sessionController.getManageUsersPage);
         this.router.get(`${this.path}/register`, this.sessionController.getRegisterPage);
         this.router.post(`${this.path}/register`, this.sessionController.registerUser);
-        this.router.get(`${this.path}/login`, this.sessionController.getLoginPage);
         this.router.post(`${this.path}/login`, this.sessionController.loginUser);
         this.router.get(`${this.path}/github`, this.sessionController.githubLogin);
         this.router.get(`${this.path}/github/callback`, this.sessionController.githubCallback);

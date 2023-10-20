@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const collectionName = "Users";
 
@@ -33,23 +34,17 @@ const userSchema = new mongoose.Schema({
   },
   cart: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "cart"
+    ref: "cart",
   },
-/*   cart: {
-    type: [
-      {
-        cart: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "cart",
-        },
-      },
-    ], 
-  },*/
   role: {
     type: String,
     required: true,
-    enum: ["USER", "ADMIN", "PUBLIC"],
+    enum: ["ADMIN", "PREMIUM", "USER", "PUBLIC"],
     default: "USER",
+  },
+  lastActivity: {
+    type: Date,
+    default: Date.now,
   },
 });
 
@@ -60,6 +55,6 @@ const userSchema = new mongoose.Schema({
   });
 }); */
 
-
+userSchema.plugin(mongoosePaginate);
 const userModel = mongoose.model(collectionName, userSchema);
 module.exports = userModel;

@@ -11,7 +11,19 @@ router.get("/register", async (req, res) => {
   res.render("register");
 }); */
 
-// TODO: Agregar middleware AUTH
+
+router.get("/profile", authMdw, async (req, res) => {
+  const user = req.session.user;
+  console.log("🚀 ~ file: views.routes.js:16 ~ router.get ~ user:", user);
+  res.render("profile", {
+    user,
+    carrito: {
+      carritoId: "carrito-1",
+      productos: [{ productoId: "1", nombre: "camisa" }],
+    },
+  });
+});
+
 router.get("/profile", authMdw, async (req, res) => {
   const user = req.session.user;
   console.log("🚀 ~ file: views.routes.js:16 ~ router.get ~ user:", user);

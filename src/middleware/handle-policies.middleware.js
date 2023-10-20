@@ -1,6 +1,7 @@
 const passport = require("passport");
 
 function handlePolicies(policies) {
+  console.log(policies.includes);
   return (req, res, next) => {
     console.log(
       "🚀 ~ file: handle-policies.middleware.js:4 ~ handlePolicies ~ policies:",

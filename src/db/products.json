@@ -1,497 +1,719 @@
 [
 	{
-	"title": "Gibson Les Paul Standard Electric Guitar",
-	"description": "The iconic Gibson model known for its rich tone and sustain",
-	"code": "GLPS9582",
-	"price": 2500,
-	"status": true,
-	"stock": 15,
-	"category": "Electric Guitar"
-	},		
+	  "title": "Gibson Les Paul Standard Electric Guitar",
+	  "description": "The iconic Gibson model known for its rich tone and sustain",
+	  "code": "GLPS9582",
+	  "price": 2500,
+	  "status": true,
+	  "stock": 15,
+	  "category": "Electric Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Fender American Professional Telecaster Guitar",
-	"description": "A versatile and reliable model for various music styles",
-	"code": "FAPT7294",
-	"price": 1800,
-	"status": true,
-	"stock": 20,
-	"category": "Electric Guitar"
-	},		
+	  "title": "Fender American Professional Telecaster Guitar",
+	  "description": "A versatile and reliable model for various music styles",
+	  "code": "FAPT7294",
+	  "price": 1800,
+	  "status": true,
+	  "stock": 20,
+	  "category": "Electric Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Ibanez RG550 Electric Guitar",
-	"description": "A high-performance instrument with fast playability and powerful pickups",
-	"code": "IRG550736",
-	"price": 1200,
-	"status": true,
-	"stock": 10,
-	"category": "Electric Guitar"
-	},		
+	  "title": "Ibanez RG550 Electric Guitar",
+	  "description": "A high-performance instrument with fast playability and powerful pickups",
+	  "code": "IRG550736",
+	  "price": 1200,
+	  "status": true,
+	  "stock": 10,
+	  "category": "Electric Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Gretsch G2622 Streamliner Semi-Hollowbody Guitar",
-	"description": "Experience the vintage-style sound and elegance of a semi-hollowbody",
-	"code": "GG262235",
-	"price": 900,
-	"status": true,
-	"stock": 7,
-	"category": "Electric Guitar"
-	},		
+	  "title": "Gretsch G2622 Streamliner Semi-Hollowbody Guitar",
+	  "description": "Experience the vintage-style sound and elegance of a semi-hollowbody",
+	  "code": "GG262235",
+	  "price": 900,
+	  "status": true,
+	  "stock": 7,
+	  "category": "Electric Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Martin D-28 Acoustic Guitar",
-	"description": "A legendary acoustic guitar known for its full-bodied tone and projection",
-	"code": "MD281947",
-	"price": 3000,
-	"status": true,
-	"stock": 9,
-	"category": "Acoustic Guitar"
-	},		
+	  "title": "Martin D-28 Acoustic Guitar",
+	  "description": "A legendary acoustic guitar known for its full-bodied tone and projection",
+	  "code": "MD281947",
+	  "price": 3000,
+	  "status": true,
+	  "stock": 9,
+	  "category": "Acoustic Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Taylor 814ce Acoustic-Electric Guitar",
-	"description": "A premium acoustic-electric model with exceptional tone and playability",
-	"code": "T814CE624",
-	"price": 3500,
-	"status": true,
-	"stock": 5,
-	"category": "Acoustic Guitar"
-	},		
+	  "title": "Taylor 814ce Acoustic-Electric Guitar",
+	  "description": "A premium acoustic-electric model with exceptional tone and playability",
+	  "code": "T814CE624",
+	  "price": 3500,
+	  "status": true,
+	  "stock": 5,
+	  "category": "Acoustic Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Yamaha FG800 Acoustic Guitar",
-	"description": "An affordable and reliable entry-level acoustic guitar",
-	"code": "YFG800472",
-	"price": 300,
-	"status": true,
-	"stock": 25,
-	"category": "Acoustic Guitar"
-	},		
+	  "title": "Yamaha FG800 Acoustic Guitar",
+	  "description": "An affordable and reliable entry-level acoustic guitar",
+	  "code": "YFG800472",
+	  "price": 300,
+	  "status": true,
+	  "stock": 25,
+	  "category": "Acoustic Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Epiphone Hummingbird PRO Acoustic-Electric Guitar",
-	"description": "Capture the iconic sound of the Hummingbird with added versatility",
-	"code": "EHPAEG726",
-	"price": 550,
-	"status": true,
-	"stock": 14,
-	"category": "Acoustic Guitar"
-	},		
+	  "title": "Epiphone Hummingbird PRO Acoustic-Electric Guitar",
+	  "description": "Capture the iconic sound of the Hummingbird with added versatility",
+	  "code": "EHPAEG726",
+	  "price": 550,
+	  "status": true,
+	  "stock": 14,
+	  "category": "Acoustic Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Fender Player Precision Bass",
-	"description": "The classic bass design with modern playability and tone",
-	"code": "FPB7951",
-	"price": 900,
-	"status": true,
-	"stock": 11,
-	"category": "Bass Guitar"
-	},		
+	  "title": "Fender Player Precision Bass",
+	  "description": "The classic bass design with modern playability and tone",
+	  "code": "FPB7951",
+	  "price": 900,
+	  "status": true,
+	  "stock": 11,
+	  "category": "Bass Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Music Man StingRay 5 Bass",
-	"description": "A versatile and powerful 5-string bass with a distinctive sound",
-	"code": "MMSTING5",
-	"price": 1800,
-	"status": true,
-	"stock": 6,
-	"category": "Bass Guitar"
-	},		
+	  "title": "Music Man StingRay 5 Bass",
+	  "description": "A versatile and powerful 5-string bass with a distinctive sound",
+	  "code": "MMSTING5",
+	  "price": 1800,
+	  "status": true,
+	  "stock": 6,
+	  "category": "Bass Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Rickenbacker 4003 Bass",
-	"description": "An iconic bass with a unique tone and timeless design",
-	"code": "RB400387",
-	"price": 2400,
-	"status": true,
-	"stock": 4,
-	"category": "Bass Guitar"
-	},		
+	  "title": "Rickenbacker 4003 Bass",
+	  "description": "An iconic bass with a unique tone and timeless design",
+	  "code": "RB400387",
+	  "price": 2400,
+	  "status": true,
+	  "stock": 4,
+	  "category": "Bass Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Ibanez SR500 Bass",
-	"description": "A sleek and versatile bass with a slim neck for comfortable playability",
-	"code": "ISR500293",
-	"price": 800,
-	"status": true,
-	"stock": 9,
-	"category": "Bass Guitar"
-	},		
+	  "title": "Ibanez SR500 Bass",
+	  "description": "A sleek and versatile bass with a slim neck for comfortable playability",
+	  "code": "ISR500293",
+	  "price": 800,
+	  "status": true,
+	  "stock": 9,
+	  "category": "Bass Guitar",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Roland TD-17KVX Electronic Drum Kit",
-	"description": "An advanced electronic drum kit with realistic feel and versatile sound options",
-	"code": "RTD17KVX56",
-	"price": 1800,
-	"status": true,
-	"stock": 6,
-	"category": "Electronic Drums"
-	},		
+	  "title": "Roland TD-17KVX Electronic Drum Kit",
+	  "description": "An advanced electronic drum kit with realistic feel and versatile sound options",
+	  "code": "RTD17KVX56",
+	  "price": 1800,
+	  "status": true,
+	  "stock": 6,
+	  "category": "Electronic Drums",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Yamaha DTX532K Electronic Drum Set",
-	"description": "A reliable and feature-packed electronic drum set for practice and performance",
-	"code": "YDTX532K9",
-	"price": 1200,
-	"status": true,
-	"stock": 8,
-	"category": "Electronic Drums"
-	},		
+	  "title": "Yamaha DTX532K Electronic Drum Set",
+	  "description": "A reliable and feature-packed electronic drum set for practice and performance",
+	  "code": "YDTX532K9",
+	  "price": 1200,
+	  "status": true,
+	  "stock": 8,
+	  "category": "Electronic Drums",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Alesis Nitro Mesh Kit Electronic Drum Set",
-	"description": "An affordable and beginner-friendly electronic drum set with responsive mesh heads",
-	"code": "ANMKEDS65",
-	"price": 400,
-	"status": true,
-	"stock": 15,
-	"category": "Electronic Drums"
-	},		
+	  "title": "Alesis Nitro Mesh Kit Electronic Drum Set",
+	  "description": "An affordable and beginner-friendly electronic drum set with responsive mesh heads",
+	  "code": "ANMKEDS65",
+	  "price": 400,
+	  "status": true,
+	  "stock": 15,
+	  "category": "Electronic Drums",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Korg SV-2 Stage Vintage Piano",
-	"description": "A stage piano that combines vintage aesthetics with modern functionality",
-	"code": "KSV2P923",
-	"price": 1800,
-	"status": true,
-	"stock": 7,
-	"category": "Keyboards"
-	},		
+	  "title": "Korg SV-2 Stage Vintage Piano",
+	  "description": "A stage piano that combines vintage aesthetics with modern functionality",
+	  "code": "KSV2P923",
+	  "price": 1800,
+	  "status": true,
+	  "stock": 7,
+	  "category": "Keyboards",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Nord Stage 3 88-Key Digital Piano",
-	"description": "A professional-grade digital piano with realistic piano and organ sounds",
-	"code": "NS388DP77",
-	"price": 3500,
-	"status": true,
-	"stock": 4,
-	"category": "Keyboards"
-	},		
+	  "title": "Nord Stage 3 88-Key Digital Piano",
+	  "description": "A professional-grade digital piano with realistic piano and organ sounds",
+	  "code": "NS388DP77",
+	  "price": 3500,
+	  "status": true,
+	  "stock": 4,
+	  "category": "Keyboards",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Roland Juno-DS88 Synthesizer",
-	"description": "A versatile synthesizer with high-quality sounds and intuitive controls",
-	"code": "RJDS8832",
-	"price": 1200,
-	"status": true,
-	"stock": 6,
-	"category": "Keyboards"
-	},		
+	  "title": "Roland Juno-DS88 Synthesizer",
+	  "description": "A versatile synthesizer with high-quality sounds and intuitive controls",
+	  "code": "RJDS8832",
+	  "price": 1200,
+	  "status": true,
+	  "stock": 6,
+	  "category": "Keyboards",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Kawai MP11SE Stage Piano",
-	"description": "A stage piano designed for professional performers and studio musicians",
-	"code": "KMP11SE51",
-	"price": 2800,
-	"status": true,
-	"stock": 3,
-	"category": "Keyboards"
-	},		
+	  "title": "Kawai MP11SE Stage Piano",
+	  "description": "A stage piano designed for professional performers and studio musicians",
+	  "code": "KMP11SE51",
+	  "price": 2800,
+	  "status": true,
+	  "stock": 3,
+	  "category": "Keyboards",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Sennheiser HD 650 Open-Back Headphones",
-	"description": "High-fidelity headphones with a natural and detailed sound signature",
-	"code": "SHD650HB8",
-	"price": 400,
-	"status": true,
-	"stock": 12,
-	"category": "Headphones"
-	},		
+	  "title": "Sennheiser HD 650 Open-Back Headphones",
+	  "description": "High-fidelity headphones with a natural and detailed sound signature",
+	  "code": "SHD650HB8",
+	  "price": 400,
+	  "status": true,
+	  "stock": 12,
+	  "category": "Headphones",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Audio-Technica ATH-M50x Studio Monitor Headphones",
-	"description": "Professional studio monitor headphones with accurate sound reproduction",
-	"code": "AATHM50X21",
-	"price": 150,
-	"status": true,
-	"stock": 18,
-	"category": "Headphones"
-	},		
+	  "title": "Audio-Technica ATH-M50x Studio Monitor Headphones",
+	  "description": "Professional studio monitor headphones with accurate sound reproduction",
+	  "code": "AATHM50X21",
+	  "price": 150,
+	  "status": true,
+	  "stock": 18,
+	  "category": "Headphones",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Beyerdynamic DT 990 Pro Open-Back Headphones",
-	"description": "Reference headphones with a spacious soundstage and detailed audio",
-	"code": "BDT990P99",
-	"price": 200,
-	"status": true,
-	"stock": 10,
-	"category": "Headphones"
-	},		
+	  "title": "Beyerdynamic DT 990 Pro Open-Back Headphones",
+	  "description": "Reference headphones with a spacious soundstage and detailed audio",
+	  "code": "BDT990P99",
+	  "price": 200,
+	  "status": true,
+	  "stock": 10,
+	  "category": "Headphones",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Sony WH-1000XM4 Wireless Noise-Canceling Headphones",
-	"description": "Premium wireless headphones with industry-leading noise cancellation",
-	"code": "SWH1000XM43",
-	"price": 350,
-	"status": true,
-	"stock": 8,
-	"category": "Headphones"
-	},		
+	  "title": "Sony WH-1000XM4 Wireless Noise-Canceling Headphones",
+	  "description": "Premium wireless headphones with industry-leading noise cancellation",
+	  "code": "SWH1000XM43",
+	  "price": 350,
+	  "status": true,
+	  "stock": 8,
+	  "category": "Headphones",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Shure SM58 Dynamic Vocal Microphone",
-	"description": "The industry-standard microphone for live vocals with excellent sound quality",
-	"code": "SSM58DV51",
-	"price": 100,
-	"status": true,
-	"stock": 25,
-	"category": "Microphones"
-	},		
+	  "title": "Shure SM58 Dynamic Vocal Microphone",
+	  "description": "The industry-standard microphone for live vocals with excellent sound quality",
+	  "code": "SSM58DV51",
+	  "price": 100,
+	  "status": true,
+	  "stock": 25,
+	  "category": "Microphones",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "AKG C414 XLII Condenser Microphone",
-	"description": "A versatile and professional-grade condenser microphone for studio recording",
-	"code": "AC414XM51",
-	"price": 1000,
-	"status": true,
-	"stock": 5,
-	"category": "Microphones"
-	},		
+	  "title": "AKG C414 XLII Condenser Microphone",
+	  "description": "A versatile and professional-grade condenser microphone for studio recording",
+	  "code": "AC414XM51",
+	  "price": 1000,
+	  "status": true,
+	  "stock": 5,
+	  "category": "Microphones",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Rode NT1 Condenser Microphone",
-	"description": "A high-quality condenser microphone with low self-noise and transparent sound",
-	"code": "RNT1CM57",
-	"price": 400,
-	"status": true,
-	"stock": 12,
-	"category": "Microphones"
-	},		
+	  "title": "Rode NT1 Condenser Microphone",
+	  "description": "A high-quality condenser microphone with low self-noise and transparent sound",
+	  "code": "RNT1CM92",
+	  "price": 250,
+	  "status": true,
+	  "stock": 12,
+	  "category": "Microphones",
+	  "createdBy": {
+		"user": "jperez@gmail.com",
+		"role": "ADMIN"
+	  }
+	},
 	{
-	"title": "Neumann U87 Ai Condenser Microphone",
-	"description": "A legendary studio microphone known for its warm and detailed sound",
-	"code": "NU87ACM52",
-	"price": 3200,
-	"status": true,
-	"stock": 3,
-	"category": "Microphones"
-	},		
+	  "title": "Neumann U87 Ai Condenser Microphone",
+	  "description": "A legendary studio microphone known for its warm and detailed sound",
+	  "code": "NU87ACM52",
+	  "price": 3200,
+	  "status": true,
+	  "stock": 3,
+	  "category": "Microphones",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Boss DS-1 Distortion Pedal",
-	"description": "A classic distortion pedal with a wide range of distorted tones",
-	"code": "BDS1DP73",
-	"price": 50,
-	"status": true,
-	"stock": 30,
-	"category": "Guitar Effects"
-	},		
+	  "title": "Boss DS-1 Distortion Pedal",
+	  "description": "A classic distortion pedal with a wide range of distorted tones",
+	  "code": "BDS1DP73",
+	  "price": 50,
+	  "status": true,
+	  "stock": 30,
+	  "category": "Guitar Effects",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Electro-Harmonix Big Muff Pi Fuzz Pedal",
-	"description": "An iconic fuzz pedal with thick and saturated distortion tones",
-	"code": "EBMPFP95",
-	"price": 80,
-	"status": true,
-	"stock": 20,
-	"category": "Guitar Effects"
-	},		
+	  "title": "Electro-Harmonix Big Muff Pi Fuzz Pedal",
+	  "description": "An iconic fuzz pedal with thick and saturated distortion tones",
+	  "code": "EBMPFP95",
+	  "price": 80,
+	  "status": true,
+	  "stock": 20,
+	  "category": "Guitar Effects",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "TC Electronic Hall of Fame 2 Reverb Pedal",
-	"description": "A versatile reverb pedal with various reverb algorithms and tone-shaping options",
-	"code": "TCEHOF2RP2",
-	"price": 150,
-	"status": true,
-	"stock": 15,
-	"category": "Guitar Effects"
-	},		
+	  "title": "TC Electronic Hall of Fame 2 Reverb Pedal",
+	  "description": "A versatile reverb pedal with various reverb algorithms and tone-shaping options",
+	  "code": "TCEHOF2RP2",
+	  "price": 150,
+	  "status": true,
+	  "stock": 15,
+	  "category": "Guitar Effects",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Strymon Timeline Delay Pedal",
-	"description": "A high-end delay pedal with studio-grade sound quality and extensive control",
-	"code": "STLDP923",
-	"price": 400,
-	"status": true,
-	"stock": 8,
-	"category": "Guitar Effects"
-	},		
+	  "title": "Strymon Timeline Delay Pedal",
+	  "description": "A high-end delay pedal with studio-grade sound quality and extensive control",
+	  "code": "STLDP923",
+	  "price": 400,
+	  "status": true,
+	  "stock": 8,
+	  "category": "Guitar Effects",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "M-Audio Oxygen 49 MIDI Keyboard Controller",
-	"description": "A versatile MIDI keyboard controller with 49 velocity-sensitive keys",
-	"code": "MAO494KC6",
-	"price": 150,
-	"status": true,
-	"stock": 12,
-	"category": "MIDI Controllers"
-	},		
+	  "title": "M-Audio Oxygen 49 MIDI Keyboard Controller",
+	  "description": "A versatile MIDI keyboard controller with 49 velocity-sensitive keys",
+	  "code": "MAO494KC6",
+	  "price": 150,
+	  "status": true,
+	  "stock": 12,
+	  "category": "MIDI Controllers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Novation Launchpad Pro MK3 MIDI Controller",
-	"description": "A feature-packed MIDI controller for Ableton Live and other music production software",
-	"code": "NLPPMK3C8",
-	"price": 300,
-	"status": true,
-	"stock": 6,
-	"category": "MIDI Controllers"
-	},		
+	  "title": "Novation Launchpad Pro MK3 MIDI Controller",
+	  "description": "A feature-packed MIDI controller for Ableton Live and other music production software",
+	  "code": "NLPPMK3C8",
+	  "price": 300,
+	  "status": true,
+	  "stock": 6,
+	  "category": "MIDI Controllers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Akai MPK Mini MK3 Compact MIDI Keyboard",
-	"description": "A portable and compact MIDI keyboard controller with responsive keys and pads",
-	"code": "AMPKM3C65",
-	"price": 100,
-	"status": true,
-	"stock": 18,
-	"category": "MIDI Controllers"
-	},		
+	  "title": "Akai MPK Mini MK3 Compact MIDI Keyboard",
+	  "description": "A portable and compact MIDI keyboard controller with responsive keys and pads",
+	  "code": "AMPKM3C65",
+	  "price": 100,
+	  "status": true,
+	  "stock": 18,
+	  "category": "MIDI Controllers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Native Instruments Maschine MK3 Groove Production Studio",
-	"description": "An all-in-one groove production studio with integrated hardware and software",
-	"code": "NIMK3GPS9",
-	"price": 600,
-	"status": true,
-	"stock": 5,
-	"category": "MIDI Controllers"
-	},		
+	  "title": "Native Instruments Maschine MK3 Groove Production Studio",
+	  "description": "An all-in-one groove production studio with integrated hardware and software",
+	  "code": "NIMK3GPS9",
+	  "price": 600,
+	  "status": true,
+	  "stock": 5,
+	  "category": "MIDI Controllers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Gator G-TOURDSPDDJSXRX ATA Road Case for Pioneer DDJ-SX3/RX DJ Controller",
-	"description": "A rugged road case designed to protect and transport your DJ controller",
-	"code": "GGTDDJSXR9",
-	"price": 200,
-	"status": true,
-	"stock": 8,
-	"category": "DJ Equipment"
-	},		
+	  "title": "Gator G-TOURDSPDDJSXRX ATA Road Case for Pioneer DDJ-SX3/RX DJ Controller",
+	  "description": "A rugged road case designed to protect and transport your DJ controller",
+	  "code": "GGTDDJSXR9",
+	  "price": 200,
+	  "status": true,
+	  "stock": 8,
+	  "category": "DJ Equipment",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Pioneer DJM-900NXS2 Professional DJ Mixer",
-	"description": "A top-of-the-line DJ mixer with enhanced sound quality and advanced performance features",
-	"code": "PDJMX900N7",
-	"price": 2000,
-	"status": true,
-	"stock": 4,
-	"category": "DJ Equipment"
-	},		
+	  "title": "Pioneer DJM-900NXS2 Professional DJ Mixer",
+	  "description": "A top-of-the-line DJ mixer with enhanced sound quality and advanced performance features",
+	  "code": "PDJMX900N7",
+	  "price": 2000,
+	  "status": true,
+	  "stock": 4,
+	  "category": "DJ Equipment",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Technics SL-1200MK7 Direct Drive Turntable",
-	"description": "The latest version of the iconic DJ turntable with improved performance and durability",
-	"code": "TSL1200M77",
-	"price": 1000,
-	"status": true,
-	"stock": 6,
-	"category": "DJ Equipment"
-	},		
+	  "title": "Technics SL-1200MK7 Direct Drive Turntable",
+	  "description": "The latest version of the iconic DJ turntable with improved performance and durability",
+	  "code": "TSL1200M77",
+	  "price": 1000,
+	  "status": true,
+	  "stock": 6,
+	  "category": "DJ Equipment",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Denon DJ SC6000 Prime Professional DJ Media Player",
-	"description": "A flagship DJ media player with a high-definition touchscreen and advanced performance features",
-	"code": "DDJSC60007",
-	"price": 1500,
-	"status": true,
-	"stock": 5,
-	"category": "DJ Equipment"
-	},		
+	  "title": "Denon DJ SC6000 Prime Professional DJ Media Player",
+	  "description": "A flagship DJ media player with a high-definition touchscreen and advanced performance features",
+	  "code": "DDJSC60007",
+	  "price": 1500,
+	  "status": true,
+	  "stock": 5,
+	  "category": "DJ Equipment",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Korg Volca Sample Digital Sample Sequencer",
-	"description": "A compact and portable sample sequencer with built-in effects and intuitive controls",
-	"code": "KVSDSSP34",
-	"price": 150,
-	"status": true,
-	"stock": 10,
-	"category": "Synthesizers"
-	},		
+	  "title": "Korg Volca Sample Digital Sample Sequencer",
+	  "description": "A compact and portable sample sequencer with built-in effects and intuitive controls",
+	  "code": "KVSDSSP34",
+	  "price": 150,
+	  "status": true,
+	  "stock": 10,
+	  "category": "Synthesizers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Moog Subsequent 37 Analog Synthesizer",
-	"description": "A powerful and versatile analog synthesizer with rich sound and extensive control options",
-	"code": "MS37AS93",
-	"price": 1800,
-	"status": true,
-	"stock": 4,
-	"category": "Synthesizers"
-	},		
+	  "title": "Moog Subsequent 37 Analog Synthesizer",
+	  "description": "A powerful and versatile analog synthesizer with rich sound and extensive control options",
+	  "code": "MS37AS93",
+	  "price": 1800,
+	  "status": true,
+	  "stock": 4,
+	  "category": "Synthesizers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Arturia MicroFreak Hybrid Synthesizer",
-	"description": "A unique and experimental synthesizer with digital oscillators and analog filters",
-	"code": "AMFS5415",
-	"price": 300,
-	"status": true,
-	"stock": 10,
-	"category": "Synthesizers"
-	},		
+	  "title": "Arturia MicroFreak Hybrid Synthesizer",
+	  "description": "A unique and experimental synthesizer with digital oscillators and analog filters",
+	  "code": "AMFS5415",
+	  "price": 300,
+	  "status": true,
+	  "stock": 10,
+	  "category": "Synthesizers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Dave Smith Instruments Prophet-6 Analog Synthesizer",
-	"description": "A modern recreation of a classic analog synthesizer with vintage sound and modern features",
-	"code": "DSIPS6902",
-	"price": 2500,
-	"status": true,
-	"stock": 3,
-	"category": "Synthesizers"
-	},		
+	  "title": "Dave Smith Instruments Prophet-6 Analog Synthesizer",
+	  "description": "A modern recreation of a classic analog synthesizer with vintage sound and modern features",
+	  "code": "DSIPS6902",
+	  "price": 2500,
+	  "status": true,
+	  "stock": 3,
+	  "category": "Synthesizers",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Ernie Ball Regular Slinky Nickel Wound Electric Guitar Strings",
-	"description": "High-quality electric guitar strings with a balanced tone and excellent playability",
-	"code": "EBSLNK12",
-	"price": 10,
-	"status": true,
-	"stock": 50,
-	"category": "Guitar Accessories"
-	},		
+	  "title": "Ernie Ball Regular Slinky Nickel Wound Electric Guitar Strings",
+	  "description": "High-quality electric guitar strings with a balanced tone and excellent playability",
+	  "code": "EBSLNK12",
+	  "price": 10,
+	  "status": true,
+	  "stock": 50,
+	  "category": "Guitar Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "D'Addario EXL110 Electric Guitar Strings",
-	"description": "One of the most popular electric guitar string sets with a bright and balanced tone",
-	"code": "DADEXL110",
-	"price": 8,
-	"status": true,
-	"stock": 40,
-	"category": "Guitar Accessories"
-	},		
+	  "title": "D'Addario EXL110 Electric Guitar Strings",
+	  "description": "One of the most popular electric guitar string sets with a bright and balanced tone",
+	  "code": "DADEXL110",
+	  "price": 8,
+	  "status": true,
+	  "stock": 40,
+	  "category": "Guitar Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "GHS Boomers Electric Guitar Strings",
-	"description": "A versatile and durable set of electric guitar strings with a rich and vibrant tone",
-	"code": "GHSBOOMER6",
-	"price": 7,
-	"status": true,
-	"stock": 35,
-	"category": "Guitar Accessories"
-	},		
+	  "title": "GHS Boomers Electric Guitar Strings",
+	  "description": "A versatile and durable set of electric guitar strings with a rich and vibrant tone",
+	  "code": "GHSBOOMER6",
+	  "price": 7,
+	  "status": true,
+	  "stock": 35,
+	  "category": "Guitar Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Planet Waves PW-CT-17BK Eclipse Tuner",
-	"description": "A compact and accurate clip-on tuner for guitar, bass, and other instruments",
-	"code": "PWECLTNR4",
-	"price": 15,
-	"status": true,
-	"stock": 25,
-	"category": "Guitar Accessories"
-	},		
+	  "title": "Planet Waves PW-CT-17BK Eclipse Tuner",
+	  "description": "A compact and accurate clip-on tuner for guitar, bass, and other instruments",
+	  "code": "PWECLTNR4",
+	  "price": 15,
+	  "status": true,
+	  "stock": 25,
+	  "category": "Guitar Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Korg Pitchblack Advance Pedal Tuner",
-	"description": "A professional-grade pedal tuner with advanced tuning features and a large display",
-	"code": "KPBTNR76",
-	"price": 80,
-	"status": true,
-	"stock": 15,
-	"category": "Guitar Accessories"
-	},		
+	  "title": "Korg Pitchblack Advance Pedal Tuner",
+	  "description": "A professional-grade pedal tuner with advanced tuning features and a large display",
+	  "code": "KPBTNR76",
+	  "price": 80,
+	  "status": true,
+	  "stock": 15,
+	  "category": "Guitar Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Fender Deluxe Molded Stratocaster Case",
-	"description": "A high-quality molded case designed to protect and transport your Stratocaster guitar",
-	"code": "FDMSC54",
-	"price": 100,
-	"status": true,
-	"stock": 8,
-	"category": "Guitar Accessories"
-	},		
+	  "title": "Fender Deluxe Molded Stratocaster Case",
+	  "description": "A high-quality molded case designed to protect and transport your Stratocaster guitar",
+	  "code": "FDMSC54",
+	  "price": 100,
+	  "status": true,
+	  "stock": 8,
+	  "category": "Guitar Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Gator Frameworks Guitar Stand",
-	"description": "A sturdy and adjustable guitar stand with a padded neck cradle to securely hold your guitar",
-	"code": "GGFGS95",
-	"price": 25,
-	"status": true,
-	"stock": 20,
-	"category": "Guitar Accessories"
-	},		
+	  "title": "Gator Frameworks Guitar Stand",
+	  "description": "A sturdy and adjustable guitar stand with a padded neck cradle to securely hold your guitar",
+	  "code": "GGFGS95",
+	  "price": 25,
+	  "status": true,
+	  "stock": 20,
+	  "category": "Guitar Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Vic Firth American Classic 5A Drumsticks",
-	"description": "A popular choice among drummers, these drumsticks provide excellent balance and durability",
-	"code": "VFAC5A12",
-	"price": 10,
-	"status": true,
-	"stock": 40,
-	"category": "Drum Accessories"
-	},		
+	  "title": "Vic Firth American Classic 5A Drumsticks",
+	  "description": "A popular choice among drummers, these drumsticks provide excellent balance and durability",
+	  "code": "VFAC5A12",
+	  "price": 10,
+	  "status": true,
+	  "stock": 40,
+	  "category": "Drum Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Promark Hickory 747 Drumsticks",
-	"description": "Made from high-quality hickory wood, these drumsticks are known for their durability and versatility",
-	"code": "PMH74734",
-	"price": 8,
-	"status": true,
-	"stock": 35,
-	"category": "Drum Accessories"
-	},		
+	  "title": "Promark Hickory 747 Drumsticks",
+	  "description": "Made from high-quality hickory wood, these drumsticks are known for their durability and versatility",
+	  "code": "PMH74734",
+	  "price": 8,
+	  "status": true,
+	  "stock": 35,
+	  "category": "Drum Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Zildjian A Series 14'' New Beat Hi-Hat Cymbals",
-	"description": "A classic choice for drummers, these hi-hat cymbals deliver a crisp and versatile sound",
-	"code": "ZA14NBHC7",
-	"price": 250,
-	"status": true,
-	"stock": 10,
-	"category": "Drum Accessories"
-	},		
+	  "title": "Zildjian A Series 14'' New Beat Hi-Hat Cymbals",
+	  "description": "A classic choice for drummers, these hi-hat cymbals deliver a crisp and versatile sound",
+	  "code": "ZA14NBHC7",
+	  "price": 250,
+	  "status": true,
+	  "stock": 10,
+	  "category": "Drum Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Sabian AA Medium Ride 20'' Cymbal",
-	"description": "A versatile ride cymbal with a balanced sound and clear stick definition",
-	"code": "SAAMR20C9",
-	"price": 200,
-	"status": true,
-	"stock": 8,
-	"category": "Drum Accessories"
-	},		
+	  "title": "Sabian AA Medium Ride 20'' Cymbal",
+	  "description": "A versatile ride cymbal with a balanced sound and clear stick definition",
+	  "code": "SAAMR20C9",
+	  "price": 200,
+	  "status": true,
+	  "stock": 8,
+	  "category": "Drum Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
+	},
 	{
-	"title": "Remo Ambassador Coated Drumhead",
-	"description": "A popular choice for drumheads, providing a warm and open sound with excellent durability",
-	"code": "RAACD68",
-	"price": 20,
-	"status": true,
-	"stock": 30,
-	"category": "Drum Accessories"
+	  "title": "Remo Ambassador Coated Drumhead",
+	  "description": "A popular choice for drumheads, providing a warm and open sound with controlled sustain",
+	  "code": "RACDHD58",
+	  "price": 15,
+	  "status": true,
+	  "stock": 25,
+	  "category": "Drum Accessories",
+	  "createdBy": {
+		"user": "lmata@gmail.com",
+		"role": "PREMIUM"
+	  }
 	}
-	]
+  ]
+  
+  

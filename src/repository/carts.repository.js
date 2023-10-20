@@ -2,12 +2,12 @@ const { format } = require('date-fns');
 const cartModel = require("../models/carts.models");
 const productModel = require("../models/products.models");
 const ticketsModel = require("../models/tickets.model");
-const {ProductService} = require ("../repository/repository.index.js");
+const ProductService = require ("./products.repository");
 
-class CartServiceDao {
-    constructor(dao, ProductService) {
+class CartService {
+    constructor(dao,) {
         this.dao = dao;
-        this.productService = ProductService;
+        this.productService = new ProductService();
     }
 
     insertCarts = async (cartsData) => {
@@ -37,7 +37,6 @@ class CartServiceDao {
 
         try {
             const cart = await cartModel.findById({ _id: cid });
-            console.log(cart)
 
             return cart;
         } catch (error) {
@@ -61,27 +60,29 @@ class CartServiceDao {
 
         try {
             const cartToPurchase = await cartModel.findById({ _id: cart });
-            
+
             if (!cartToPurchase) {
                 return res.status(404).json({
                     message: `cart ID ${cart} not found`,
                 });
                 }
+
+            const purchaseCart = cartToPurchase.products
             
-                const ticketProducts = [];
-                const productsWithoutStock = [];
-                
-                for (const { product, quantity } of cartToPurchase.products) {
-                    const productId = await productModel.findById({ _id: product.id });
-                    if (productId.stock >= quantity) {
-                        ticketProducts.push({
-                            product, quantity
-                        });
-                    } else {
-                        productsWithoutStock.push({ product, quantity });
-                    }
+            const ticketProducts = [];
+            const productsWithoutStock = [];
+            
+            for (const { product, quantity } of cartToPurchase.products) {
+                const productId = await productModel.findById({ _id: product.id });
+                if (productId.stock >= quantity) {
+                    ticketProducts.push({
+                        product, quantity
+                    });
+                } else {
+                    productsWithoutStock.push({ product, quantity });
                 }
-                
+            }
+
             await cartModel.updateOne({ _id: cartToPurchase.id }, { products: productsWithoutStock });
 
             await Promise.all(
@@ -92,9 +93,6 @@ class CartServiceDao {
                     );
                 })
             );
-            
-
-            console.log("ticketProducts", ticketProducts)
 
             const ticketAmount = ticketProducts.reduce(
                 (total, { product, quantity }) => {
@@ -111,7 +109,8 @@ class CartServiceDao {
             );            
 
             const ticket = await ticketsModel.create({
-                code: format(new Date(), 'dd-MM-yyyy HH:mm'),
+                dateTime: format(new Date(), 'dd-MM-yyyy HH:mm'),
+                details: ticketProducts,
                 amount: ticketAmount,
                 purchasedBy: email,
             });
@@ -126,7 +125,19 @@ class CartServiceDao {
         console.log("updateCartById from REPOSITORY executed");
     
         try {
+            for (const productItem of cartData.products) {
+                const product = await productModel.findById({ _id: productItem.product });
+                if (!product) {
+                    return productItem.product
+                }
+            }
+
             const data = await cartModel.updateOne({ _id: cid }, { $set: cartData });
+
+            if(!data) {
+                return undefined
+            }
+
             return data;
         } catch (error) {
             console.log("🚀 ~ file: carts.repository.js:59 ~ CartServiceDao ~ updateCartById= ~ error:", error)
@@ -204,4 +215,4 @@ class CartServiceDao {
     };
 }
 
-module.exports = CartServiceDao;
+module.exports = CartService;

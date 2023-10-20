@@ -1,12 +1,11 @@
 /* const  cartDto = require ("../dto/cart.dto"); */
 const cartsData = require("../db/carts.json");
-const {CartService} = require ("../repository/repository.index");
-
-
+const CartService = require ("../repository/carts.repository")
+;
 
 class CartCtrl {
     constructor() {
-        this.cartService = CartService;
+        this.cartService = new CartService();
     }
 
     insertCarts = async (req, res ) => {
@@ -64,7 +63,7 @@ class CartCtrl {
         }
     };
 
-        purchaseCart = async (req, res) => {
+    purchaseCart = async (req, res) => {
         console.log("purchaseCart from CONTROLLER executed");
 
         try {
@@ -88,17 +87,22 @@ class CartCtrl {
         try {
             const updatedCart = await this.cartService.updateCartById(req.params.cid, cartData);
 
-            if (!updatedCart) {
+            if (typeof updatedCart === 'string') {
+                return res.status(404).json({
+                    message: `Product ID ${updatedCart} not found`,
+                });
+            }else if (updatedCart === undefined) {
                 return res.status(404).json({
                     message: `cart ID ${req.params.cid} not found`,
                 });
-                }
-            
+            } else {
+                console.log("updatedCart: ", updatedCart);
             return res.json({
                 message: `cart ID ${req.params.cid} successfully updated`,
                 cart: updatedCart,
             });
-            
+            }
+
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }
