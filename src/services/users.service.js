@@ -113,19 +113,12 @@ class userService {
         console.log("updateUserById from REPOSITORY executed");
 
         const newRole = userData.role || null;
+        console.log("newRole: ", newRole)
         if (newRole !== null && !["ADMIN", "PREMIUM", "USER", "PUBLIC"].includes(newRole)) {
             return {
                 success: false,
                 status: StatusCodes.BAD_REQUEST,
                 message: `${EnumErrors.INVALID_PARAMS} - Invalid input Data`,
-            };
-        }
-
-        if (!userData.firstName || !userData.lastName || !userData.age || !userData.username || !userData.email || !userData.password || !userData.role) {
-            return {
-            success: false,
-            status: StatusCodes.BAD_REQUEST,
-            message: `${EnumErrors.INVALID_PARAMS} - Invalid input Data`,
             };
         }
 
