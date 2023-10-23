@@ -4,9 +4,9 @@ const { passportCall } = require("../utils/jwt");
 const { authorization } = require("../middleware/auth.middleware");
 const { API_VERSION } = require("../config/config");
 const cartsModel = require("../models/carts.models");
-const CartService = require ("../repository/carts.repository");
-const userModel = require("../models/users.model");
-const UserService = require ("../repository/users.repository");
+const CartService = require ("../services/carts.service");
+const userModel = require("../models/users.models");
+const UserService = require ("../services/users.service");
 
 
 class UsersManagerViewsRoutes {

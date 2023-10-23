@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { API_VERSION } = require("../config/config");
 const { authMdw } = require("../middleware/auth.middleware");
-const CartService = require ("../repository/carts.repository");
+const CartService = require ("../services/carts.service");
 const cartsModel = require("../models/carts.models");
 
 

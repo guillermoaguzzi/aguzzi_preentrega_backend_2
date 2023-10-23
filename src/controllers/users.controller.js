@@ -1,11 +1,14 @@
 /* const  UserDto = require ("../dto/user.dto"); */
-const UserService = require ("../repository/users.repository");
+const UserService = require ("../services/users.service");
 const handlePolicies = require("../middleware/handle-policies.middleware");
-
+const { HttpResponse } = require("../middleware/errors.middleware");
+const { EnumErrors } = require("../middleware/errors.middleware");
+const { StatusCodes } = require("http-status-codes");
 
 class UserCtrl {
     constructor() {
         this.userService = new UserService();
+        this.httpResp = new HttpResponse();
     }
 
 
@@ -68,66 +71,78 @@ class UserCtrl {
     createUser = async (req, res) => {
         console.log("createUser from CONTROLLER executed");
 
-        try {
-        const userInstDto = /* new userDto */(req.body);
-        const newUser = await this.userService.createUser(
-            userInstDto
-        );
-        return res.json({
-            message: `User created successfully`,
-            user: newUser,
-        });
+    try {
+        const response = await this.userService.createUser(req.body);
+
+        switch (response.status) {
+            case StatusCodes.BAD_REQUEST:
+                return this.httpResp.BadRequest(res, response.message);
+            case StatusCodes.INTERNAL_SERVER_ERROR:
+                return this.httpResp.Error(res, response.message);
+            case StatusCodes.OK:
+                return res.json({
+                message: response.message,
+                product: response.data,
+                });
+            default:
+                return this.httpResp.Error(res, response.message);
+        }
         } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            message: `${EnumErrors.CONTROLLER_ERROR} - ${error.message}`,
+        });
         }
     };
 
     updateUserById = async (req, res) => {
         console.log("updateUserById from CONTROLLER executed");
 
-        const uid = req.params.uid;
-        const userData = req.body;
-
         try {
 
+        const response = await this.userService.updateUserById(req.params.uid, req.body);
 
-        const UpdatedUser = await this.userService.updateUserById(uid, userData);
-
-        if (!UpdatedUser) {
-            return res.status(404).json({
-                message: `User ID ${req.params.uid} not found`,
-            });
-            }
-        
-        return res.json({
-            message: `User ID ${req.params.uid} successfully updated`,
-            user: UpdatedUser,
-        });
-        
-        } catch (error) {
-        return res.status(500).json({ message: error.message });
+        switch (response.status) {
+            case StatusCodes.BAD_REQUEST:
+                return this.httpResp.BadRequest(res, response.message);
+            case StatusCodes.INTERNAL_SERVER_ERROR:
+                return this.httpResp.Error(res, response.message);
+            case StatusCodes.OK:
+                return res.json({
+                message: response.message,
+                user: response.data,
+                });
+            default:
+                return this.httpResp.Error(res, response.message);
         }
-    };
+        } catch (error) {
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: `${EnumErrors.CONTROLLER_ERROR} - ${error.message}`,
+            });
+        }
+    }
 
     deleteUserById = async (req, res) => {
         console.log("deleteUserById from CONTROLLER executed");
-        
-        const uid = req.params.uid;
 
         try {
-        const userToDelete = await this.userService.deleteUserById(uid)
+        const response = await this.userService.deleteUserById(req.params.uid)
         
-        if (!userToDelete) {
-            return res.status(404).json({
-                message: `User ID ${req.params.uid} not found`,
-            });
-            }
-
-        return res.json({
-            message: `user successfully deleted`,
-        })
+        switch (response.status) {
+            case StatusCodes.BAD_REQUEST:
+                return this.httpResp.BadRequest(res, response.message);
+            case StatusCodes.INTERNAL_SERVER_ERROR:
+                return this.httpResp.Error(res, response.message);
+            case StatusCodes.OK:
+                return res.json({
+                message: response.message,
+                });
+            default:
+                return this.httpResp.Error(res, response.message);
+        }
         } catch (error) {
-        return res.status(500).json({ message: error.message });
+            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: `${EnumErrors.CONTROLLER_ERROR} - ${error.message}`,
+            });
         }
     }
 
@@ -136,17 +151,19 @@ class UserCtrl {
         
 
         try {
-        const userToDelete = await this.userService.deleteInactiveUsers()
+        const data = await this.userService.deleteInactiveUsers()
         
-        if (userToDelete === null) {
-            return res.status(404).json({
-                message: `No inactive Users `,
+        if (!data) {
+            return res.json({
+                status: StatusCodes.INTERNAL_SERVER_ERROR,
+                message: 'Error processing Inactive Users',
             });
             }
 
         return res.json({
-            message: `user/s successfully deleted`,
-        })
+            message: "Inactive Users Processed",
+            data: data
+        });
         } catch (error) {
         return res.status(500).json({ message: error.message });
         }

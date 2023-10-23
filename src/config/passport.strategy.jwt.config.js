@@ -1,7 +1,7 @@
 const passport = require("passport");
 const jwt = require("passport-jwt");
 const {ROLES} = require("./config");
-const userModel = require("../models/users.model");
+const userModel = require("../models/users.models");
 const { SECRET_JWT } = require("../utils/jwt");
 
 const JWTStrategy = jwt.Strategy;

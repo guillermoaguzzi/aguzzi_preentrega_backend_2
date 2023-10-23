@@ -8,11 +8,11 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const compression = require ("express-compression");
-const passport = require("passport");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const swaggerOpts = require("./config/swagger.config")
 
+const passport = require("passport");
 const initializePassportJWT = require("./config/passport.strategy.jwt.config");
 const initializePassportGithub = require("./config/passport.strategy.github.config");
 const { setLogger } = require ("./utils/logger.js");
@@ -120,7 +120,7 @@ class App {
         this.httpServer.listen(this.port, () => {
             displayRoutes(this.app);
             console.log(`=================================`);
-            console.log(`======= ENV: ${this.env}${DB_USER}:${DB_PASSWORD} ========`);
+            console.log(`======= ENV: ${this.env} ========`);
             console.log(`🚀 App listening on the port ${this.port}`);
             console.log(`=================================`);
         });

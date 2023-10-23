@@ -1,8 +1,8 @@
-const userModel = require("../models/users.model")
+const userModel = require("../models/users.models")
 const { createHashValue, isValidPasswd } = require("../utils/bcrypt");
 const passport = require("passport");
 const { generateJWT } = require("../utils/jwt");
-const CartService = require ("./carts.repository");
+const CartService = require ("./carts.service");
 
 class SessionService {
     constructor() {
@@ -57,10 +57,11 @@ class SessionService {
             
             const newUser = await userModel.create(newUserData);
     
+            console.log(req.session)
             req.session.user = { ...newUserData };
             return newUserData.email
         } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:65 ~ sessionServiceDao ~ registerUser= ~ error:", error)
+        console.log("🚀 ~ file: users.service.js:65 ~ sessionServiceDao ~ registerUser= ~ error:", error)
         }
     }
 
@@ -113,41 +114,11 @@ class SessionService {
 
             return user
         } catch (error) {
-            console.log("🚀 ~ file: users.repository.js:80 ~ sessionServiceDao ~ loginUser= ~ error:", error);
+            console.log("🚀 ~ file: users.service.js:80 ~ sessionServiceDao ~ loginUser= ~ error:", error);
             res.status(500).json({ message: error.message });
         }
     }
     
-
-    githubLogin = async (req, res) => {
-                console.log("githubLogin from REPOSITORY executed");
-
-        try {
-            passport.authenticate("github", { scope: ["user:email"] })(req, res);
-        } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:90 ~ sessionServiceDao ~ githubLogin= ~ error:", error)
-        }
-    }
-
-    githubCallback = async (req, res) => {
-        console.log("githubCallback from REPOSITORY executed");
-
-        try {
-            passport.authenticate("github", { failureRedirect: "/login" })(
-                req,
-                res,
-                () => {
-                    console.log(
-                        `Using ENDPOINT of github/callback to communicate`
-                    );
-                    req.session.user = req.user;
-                    res.redirect("/profile");
-                }
-            );
-        } catch (error) {
-        console.log("🚀 ~ file: users.repository.js:110 ~ sessionServiceDao ~ githubCallback= ~ error:", error)
-        }
-    }
 
     logoutUser = async (req, res) => {
         console.log("logoutUser from REPOSITORY executed");

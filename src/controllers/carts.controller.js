@@ -1,11 +1,15 @@
-/* const  cartDto = require ("../dto/cart.dto"); */
 const cartsData = require("../db/carts.json");
-const CartService = require ("../repository/carts.repository")
-;
+const CartService = require ("../services/carts.service");
+const ProductService = require ("../services/products.service");
+const { HttpResponse } = require("../middleware/errors.middleware");
+const { EnumErrors } = require("../middleware/errors.middleware");
+const { StatusCodes } = require("http-status-codes");
 
 class CartCtrl {
     constructor() {
+        this.productService = new ProductService();
         this.cartService = new CartService();
+        this.httpResp = new HttpResponse();
     }
 
     insertCarts = async (req, res ) => {
@@ -52,8 +56,7 @@ class CartCtrl {
         console.log("createCart from CONTROLLER executed");
 
         try {
-            const cartInstDto = /* new cartDto */(req.body);
-            const newCart = await this.cartService.createCart(cartInstDto);
+            const newCart = await this.cartService.createCart(req.body);
             return res.json({
                 message: `Cart created successfully`,
                 cart: newCart,
@@ -83,26 +86,38 @@ class CartCtrl {
         console.log("updateCartById from CONTROLLER executed");
 
         const cartData = req.body;
-        
         try {
-            const updatedCart = await this.cartService.updateCartById(req.params.cid, cartData);
+            const cartToUpdate = await this.cartService.getCartById(req.params.cid);
 
-            if (typeof updatedCart === 'string') {
-                return res.status(404).json({
-                    message: `Product ID ${updatedCart} not found`,
-                });
-            }else if (updatedCart === undefined) {
+            if (!cartToUpdate) {
                 return res.status(404).json({
                     message: `cart ID ${req.params.cid} not found`,
                 });
-            } else {
+            }
+
+            for (const item of cartData) {
+                const product = await this.productService.getProductById(item.product);
+    
+                if (!product) {
+                    return res.status(404).json({
+                        message: `Product ID ${item.product} not found`,
+                    });
+                }
+            }
+            
+            const updatedCart = await this.cartService.updateCartById(req.params.cid, cartData);
+
+            if(updatedCart === undefined){
+                return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                    message: `${EnumErrors.CONTROLLER_ERROR} - ${error.message}`,
+                });
+            }else {
                 console.log("updatedCart: ", updatedCart);
             return res.json({
                 message: `cart ID ${req.params.cid} successfully updated`,
                 cart: updatedCart,
-            });
+                });
             }
-
         } catch (error) {
             return res.status(500).json({ message: error.message });
         }
@@ -112,21 +127,22 @@ class CartCtrl {
     updateProductQuantity = async (req, res) => {
         console.log("updateProductQuantity from CONTROLLER executed");
         
-        const quantity = req.body;
-        
         try {
-            const updatedProduct = await this.cartService.updateProductQuantity(req.params.cid, req.params.pid, quantity);
+            const response = await this.cartService.updateProductQuantity(req.params.cid, req.params.pid, req.body);
 
-            if (!updatedProduct) {
-                return res.status(404).json({
-                    message: `cart ID ${req.params.cid} and/or product ID ${req.params.cid} not found`,
-                });
-                }
-            
-            return res.json({
-                message: `Product ID ${req.params.pid} from cart ID ${req.params.cid} successfully updated`,
-                cart: updatedProduct,
-            });
+            switch (response.status) {
+                case StatusCodes.BAD_REQUEST:
+                    return this.httpResp.BadRequest(res, response.message);
+                case StatusCodes.INTERNAL_SERVER_ERROR:
+                    return this.httpResp.Error(res, response.message);
+                case StatusCodes.OK:
+                    return res.json({
+                    message: response.message,
+                    cart: response.data,
+                    });
+                default:
+                    return this.httpResp.Error(res, response.message);
+            }
             
         } catch (error) {
             return res.status(500).json({ message: error.message });
@@ -137,20 +153,20 @@ class CartCtrl {
         console.log("deleteProductById from CONTROLLER executed");
         
         try {
-            const deleteProduct = await this.cartService.deleteProductById(req.params.cid, req.params.pid);
+            const response = await this.cartService.deleteProductById(req.params.cid, req.params.pid);
 
-            if (!deleteProduct) {
-                return res.status(404).json({
-                    message: `cart ID ${req.params.cid} and/or product ID ${req.params.cid} not found`,
-                });
-                }
-            
-            return res.json({
-                message: `Product from cart ID ${req.params.cid} successfully deleted`,
-            });
-            
+            switch (response.status) {
+                case StatusCodes.BAD_REQUEST:
+                    return this.httpResp.BadRequest(res, response.message);
+                case StatusCodes.OK:
+                    return res.json({
+                    message: response.message,
+                    });
+                default:
+                    return this.httpResp.Error(res, response.message);
+            }
         } catch (error) {
-        return res.status(500).json({ message: error.message });
+            return res.status(500).json({ message: error.message });
         }
     };
 
@@ -174,26 +190,29 @@ class CartCtrl {
         }
     }
 
-
     deleteCartById = async (req, res) => {
         console.log("deleteCartById from CONTROLLER executed");
         
         try {
-        const cartToDelete = await this.cartService.deleteCartById(req.params.cartId)
+        const response = await this.cartService.deleteCartById(req.params.cartId)
         
-        if (!cartToDelete) {
-            return res.status(404).json({
-                message: `cart ID ${req.params.cartId} not found`,
-            });
-            }
-
-        return res.json({
-            message: `Cart successfully deleted`,
-        })
-        } catch (error) {
-        return res.status(500).json({ message: error.message });
-        }
-    }
+        switch (response.status) {
+            case StatusCodes.BAD_REQUEST:
+              return this.httpResp.BadRequest(res, response.message);
+            case StatusCodes.OK:
+              return res.json({
+                message: response.message,
+                product: response.data,
+              });
+            default:
+              return this.httpResp.Error(res, response.message);
+          }
+      } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          message: `${EnumErrors.CONTROLLER_ERROR} - ${error.message}`,
+        });
+      }
+    };
 };
 
 module.exports =  CartCtrl;

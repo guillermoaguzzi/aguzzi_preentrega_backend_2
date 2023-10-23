@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { DB_HOST, DB_PORT, DB_NAME } = require("../../config/config");
 const {expect} = require('chai');
-const SessionService = require('../../repository/sessions.repository');
+const SessionService = require('../../services/sessions.service');
 const { beforeEach } = require('mocha');
 
 const MONGO_URL = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;

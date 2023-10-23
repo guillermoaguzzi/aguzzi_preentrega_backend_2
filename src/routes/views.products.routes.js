@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const { authMdw } = require("../middleware/auth.middleware");
 const { API_VERSION } = require("../config/config");
-const CartService = require ("../repository/carts.repository");
+const CartService = require ("../services/carts.service");
 const cartsModel = require("../models/carts.models");
-const ProductService = require ("../repository/products.repository");
+const ProductService = require ("../services/products.service");
 const productsModel = require("../models/products.models");
 
 class ProductsViewsRoutes {

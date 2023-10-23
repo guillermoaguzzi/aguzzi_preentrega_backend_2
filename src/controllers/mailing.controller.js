@@ -1,4 +1,4 @@
-const MailingService = require ("../repository/mailing.repository");
+const MailingService = require ("../services/mailing.service");
 
 
 

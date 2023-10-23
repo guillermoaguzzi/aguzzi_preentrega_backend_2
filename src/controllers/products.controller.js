@@ -1,11 +1,16 @@
 const  ProductDto = require ("../dto/product.dto");
 const productsData = require("../db/products.json");
-const ProductService = require ("../repository/products.repository");
+const ProductService = require ("../services/products.service");
 const handlePolicies = require("../middleware/handle-policies.middleware");
+const { HttpResponse } = require("../middleware/errors.middleware");
+const { EnumErrors } = require("../middleware/errors.middleware");
+const { StatusCodes } = require("http-status-codes");
+
 
 class ProductCtrl {
   constructor() {
     this.productService = new ProductService();
+    this.httpResp = new HttpResponse();
   }
 
   insertProducts = async (req, res ) => {
@@ -72,7 +77,7 @@ class ProductCtrl {
     req.logger.fatal("FATAL level for Development Logger for Development and production Logger - console and file ooutput CHECK ✓");
 
     try {
-    const productId = "64f3568a564f7aa08e890d44"
+    const productId = "65323942de6f521bf2d57004"
     const product = await this.productService.loggerTest(productId);
 
     if (!product) {
@@ -87,32 +92,42 @@ class ProductCtrl {
   }
 };
 
-  createProduct = async (req, res) => {
-    console.log("createProduct from CONTROLLER executed");
+createProduct = async (req, res) => {
+  console.log("createProduct from CONTROLLER executed");
 
-    try {
+  try {
+    const userToken = req.session.token;
 
-      const userToken = req.session.token
-            console.log(userToken);
-
-            if (!userToken) {
-                return res.status(401).json({ message: "User token not found" });
-            }
-    
-            req.headers.authorization = `Bearer ${userToken}`;
-    
-            handlePolicies(["ADMIN","PREMIUM"])(req, res, async () => {
-              const newProduct = await this.productService.createProduct(req, res);
-        
-              return res.json({
-                message: `Product created successfully`,
-                product: newProduct,
-            });
-      });
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
+    if (!userToken) {
+      return this.httpResp.Forbbiden(res, `${EnumErrors.FORBIDDEN_ERROR} - User token not found`);
     }
-  };
+
+    req.headers.authorization = `Bearer ${userToken}`;
+
+    handlePolicies(["ADMIN", "PREMIUM"])(req, res, async () => {
+      const response = await this.productService.createProduct(req.body);
+
+      switch (response.status) {
+        case StatusCodes.BAD_REQUEST:
+          return this.httpResp.BadRequest(res, response.message);
+        case StatusCodes.INTERNAL_SERVER_ERROR:
+          return this.httpResp.Error(res, response.message);
+        case StatusCodes.OK:
+          return res.json({
+            message: response.message,
+            product: response.data,
+          });
+        default:
+          return this.httpResp.Error(res, response.message);
+      }
+    });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: `${EnumErrors.CONTROLLER_ERROR} - ${error.message}`,
+    });
+  }
+};
+
 
   updateProductById = async (req, res) => {
     console.log("updateProductById from CONTROLLER executed");
